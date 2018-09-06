@@ -10,5 +10,10 @@
 .planTripForm div {
   display: flex;
   flex-direction: column; }
+.planTripForm .planTripCalendar {
+  margin-top: 40px; }
+
+.planTripHeaders {
+  text-align: center; }
 
 /*# sourceMappingURL=styles.css.map */
