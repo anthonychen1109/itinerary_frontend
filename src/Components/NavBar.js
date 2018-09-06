@@ -37,7 +37,9 @@ export default class NavBar extends Component {
             </Link>
           </Breadcrumb.Item>
           <Breadcrumb.Item key="Login">
+            <Link to='/login'>
             <Icon type="key" theme="outlined" /> Login
+            </Link>
           </Breadcrumb.Item>
           <Breadcrumb.Item key="Register">
             <Icon type="edit" theme="outlined" /> Register
