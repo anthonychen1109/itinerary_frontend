@@ -1,31 +1,23 @@
 import React from 'react';
-import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
+import { withGoogleMap, GoogleMap } from 'react-google-maps';
 
 class WorldMap extends React.Component {
-  constructor() {
-      super();
-      this.state = {
-        lat: 51.505,
-        lng: -0.09,
-        zoom: 13,
-      };
-    }
-
-    render() {
-      const position = [this.state.lat, this.state.lng];
-      return (
-        <Map center={position} zoom={this.state.zoom}>
-          <TileLayer
-            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-          />
-          <Marker position={position}>
-            <Popup>
-              <span>A pretty CSS3 popup. <br/> Easily customizable.</span>
-            </Popup>
-          </Marker>
-        </Map>
-      );
-    }
+  render() {
+    const GoogleMapLocation = withGoogleMap(props => (
+     <GoogleMap
+       defaultCenter = { { lat: 40.701074, lng: -73.987064 } }
+       defaultZoom = { 13 }
+     >
+     </GoogleMap>
+    ));
+    return (
+      <div>
+        <GoogleMapLocation
+          containerElement={ <div style={{ height: `500px`, width: '100%' }} /> }
+          mapElement={ <div style={{ height: `100%` }} /> }
+        />
+      </div>
+    )
   }
+}
 export default WorldMap;
