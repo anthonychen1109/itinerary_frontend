@@ -15,9 +15,13 @@ class CreateTrip extends Component {
 
   render() {
     return (
-      <div>
-        <PlanTrip tripStart={this.state.tripStart} tripEnd={this.state.tripEnd}/>
-        <WorldMap />
+      <div className="createTrip container">
+        <div className="planTrip">
+          <PlanTrip tripStart={this.state.tripStart} tripEnd={this.state.tripEnd}/>
+        </div>
+        <div className="worldMap">
+          <WorldMap />
+        </div>
       </div>
     )
   }

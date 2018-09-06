@@ -1,0 +1,18 @@
+.createTrip {
+  display: flex;
+  padding-top: 40px;
+  .planTrip {
+    border: 1px solid black;
+    width: 30%;
+  }
+  .worldMap {
+    width: 70%;
+  }
+}
+
+.planTripForm {
+  div {
+    display: flex;
+    flex-direction: column;
+  }
+}
