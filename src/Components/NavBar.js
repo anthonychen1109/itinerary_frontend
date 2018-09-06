@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Menu , Icon } from 'antd'
-
+import { Breadcrumb , Icon } from 'antd'
+import { Link } from 'react-router-dom'
 export default class NavBar extends Component {
 
 
@@ -23,23 +23,30 @@ export default class NavBar extends Component {
   render() {
     console.log(this.state.current)
     return (
-      <div className="menu">
-        <Menu
+      <div className="nav">
+
+        <Breadcrumb
         theme={this.state.theme}
         onClick={this.handleClick}
         selectedKeys={[this.state.current]}
         mode="horizontal">
-        <img className="logo" src={require('../logo.png')}/>
-          <Menu.Item key="Home">
+        <img alt="globetrotters" className="logo" src={require('../logo.png')}/>
+          <Breadcrumb.Item key="Home">
+
             <Icon type="appstore" /> Home
-          </Menu.Item>
-          <Menu.Item key="Login">
+          </Breadcrumb.Item>
+          <Breadcrumb.Item key="Login">
             <Icon type="key" theme="outlined" /> Login
-          </Menu.Item>
-          <Menu.Item key="Register">
+          </Breadcrumb.Item>
+          <Breadcrumb.Item key="Register">
             <Icon type="edit" theme="outlined" /> Register
-          </Menu.Item>
-        </Menu>
+          </Breadcrumb.Item>
+          <Breadcrumb.Item key="Map">
+          <Link to='/map'>
+          <Icon type="global" theme="outlined" /> Map
+          </Link>
+          </Breadcrumb.Item>
+        </Breadcrumb>
 
       </div>
     )
