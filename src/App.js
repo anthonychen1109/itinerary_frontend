@@ -8,13 +8,8 @@ class App extends Component {
   render() {
     return (
       <div>
-<<<<<<< HEAD
-
-        <CreateTrip />
-=======
         <NavBar />
         <Route path='/map' component={CreateTrip} />
->>>>>>> james-dev
       </div>
     );
   }
