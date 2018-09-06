@@ -32,8 +32,9 @@ export default class NavBar extends Component {
         mode="horizontal">
         <img alt="globetrotters" className="logo" src={require('../logo.png')}/>
           <Breadcrumb.Item key="Home">
-
+            <Link to='/'>
             <Icon type="appstore" /> Home
+            </Link>
           </Breadcrumb.Item>
           <Breadcrumb.Item key="Login">
             <Icon type="key" theme="outlined" /> Login
