@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 import {Input} from 'antd';
 import Calendar from 'react-calendar';
+import TripModal from './TripModal';
 
 class PlanTrip extends Component {
 
   state = {
-    date: new Date()
+    startDate: new Date()
   }
 
   handleChange = (date) => {
-    this.setState({ date })
+    this.setState({ startDate: date })
   }
 
   render() {
+    console.log(this.state.date);
     return (
       <div>
         <form>
@@ -28,8 +30,8 @@ class PlanTrip extends Component {
             </h3>
             <Input placeholder="Ending Location" size="large" value={this.props.tripEnd} name="tripEnd"/>
           </div>
-          <div className="planTripCalendar">
-            <Calendar onChange={this.handleChange} value={this.state.date}/>
+          <div className="planTripSelectButton">
+            <TripModal />
           </div>
         </form>
       </div>

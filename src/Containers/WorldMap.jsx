@@ -1,23 +1,30 @@
-import React from 'react';
-import { withGoogleMap, GoogleMap } from 'react-google-maps';
+import React, { Component } from "react";
+import HEREMap, {Circle} from "react-here-maps";
 
-class WorldMap extends React.Component {
-  render() {
-    const GoogleMapLocation = withGoogleMap(props => (
-     <GoogleMap
-       defaultCenter = { { lat: 40.701074, lng: -73.987064 } }
-       defaultZoom = { 13 }
-     >
-     </GoogleMap>
-    ));
-    return (
-      <div>
-        <GoogleMapLocation
-          containerElement={ <div style={{ height: `500px`, width: '100%' }} /> }
-          mapElement={ <div style={{ height: `100%` }} /> }
-        />
-      </div>
-    )
-  }
+export default class Map extends Component {
+   render() {
+       // center the map somewhere in London
+       const center = {
+           lat: 51.5,
+           lng: 0,
+       };
+
+       return (
+           <HEREMap
+               appId={"kHTyFmWw2tCVf1y2jdFt"}
+               appCode={"NlVmkWh4Hl4xAZMIlMv60g"}
+               center={center}
+               zoom={8}
+               hidpi={true}
+           >
+               <Circle
+                   {...center}
+                   strokeColor="#1275E8"
+                   fillColor="rgba(212, 92, 91, 0.2)"
+                   lineWidth={2}
+                   radius={10000}
+               />
+           </HEREMap>
+       )
+   }
 }
-export default WorldMap;
