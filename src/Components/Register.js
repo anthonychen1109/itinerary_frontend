@@ -24,9 +24,11 @@ export default class Register extends Component {
   render() {
     console.log(this.props.password)
     return (
-      <div className="row">
-          <h3>Sign Up</h3>
-        <form onSubmit={this.handleSubmit}  className="col s12 form">
+      <div className="registerPage">
+        <form onSubmit={this.handleSubmit}  className="registerForm col s12 form">
+          <div className="signUpHeader">
+            <h3>Sign Up</h3>
+          </div>
           <div className="row">
             <div className="input-field col s6">
               <input onChange={this.props.handleUsername} value={this.props.username} placeholder=" Create Username" id="first_name" type="text" className="validate"/>
@@ -37,6 +39,7 @@ export default class Register extends Component {
               <input onChange={this.props.handlePassword} value={this.props.password} placeholder=" Create Password" id="password" type="password" className="validate"/>
             </div>
           </div>
+<<<<<<< HEAD
           <div className="file-field input-field">
           <div className="btn">
           <span>File</span>
@@ -47,6 +50,9 @@ export default class Register extends Component {
           </div>
           </div>
         <div className="row">
+=======
+        <div className="registerSubmitButton row">
+>>>>>>> master
           <button type="submit" className="btn btn-large pink pulse">Sign Up</button>
         </div>
         </form>

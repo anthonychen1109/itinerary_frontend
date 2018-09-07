@@ -42,7 +42,7 @@ class PlanTrip extends Component {
             </h3>
             <input placeholder="Starting Location" size="large" value={this.props.tripStartingLocation} name="tripStart" onChange={this.props.updateTripStartEnd}/>
           </div>
-          <div>
+          <div className="planTripInputs">
             <h5>Locations: </h5>
             {renderTrips}
           </div>
