@@ -39,7 +39,6 @@ export default class Register extends Component {
               <input onChange={this.props.handlePassword} value={this.props.password} placeholder=" Create Password" id="password" type="password" className="validate"/>
             </div>
           </div>
-<<<<<<< HEAD
           <div className="file-field input-field">
           <div className="btn">
           <span>File</span>
@@ -49,10 +48,7 @@ export default class Register extends Component {
           <input className="file-path validate" type="text"/>
           </div>
           </div>
-        <div className="row">
-=======
         <div className="registerSubmitButton row">
->>>>>>> master
           <button type="submit" className="btn btn-large pink pulse">Sign Up</button>
         </div>
         </form>
