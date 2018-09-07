@@ -5,16 +5,7 @@ import TripModal from './TripModal';
 
 class PlanTrip extends Component {
 
-  state = {
-    startDate: new Date()
-  }
-
-  handleChange = (date) => {
-    this.setState({ startDate: date })
-  }
-
   render() {
-    console.log(this.state.date);
     return (
       <div>
         <form>

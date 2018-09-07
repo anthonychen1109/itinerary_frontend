@@ -24,4 +24,21 @@
   margin: 0 auto;
 }
 
+.modalSubmitBtn {
+  display: block;
+  margin: 0 auto;
+  margin-top: 10px;
+}
+
+.modalTripHeader {
+  text-align: center;
+}
+
+.modalCloseBtn {
+  float: right;
+}
+
+.modalCalendarDivs h2{
+  text-align: center;
+}
 /*# sourceMappingURL=styles.css.map */
