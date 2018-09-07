@@ -19,6 +19,7 @@ class App extends Component {
 
         <Route exact path='/' component={Home} />
         <Route exact path='/map' component={CreateTrip} />
+        <Route exact path='/login' render={() => <Login form={this.state.username} /> } />
 
       </div>
     );
