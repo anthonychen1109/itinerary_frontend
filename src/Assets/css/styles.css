@@ -1,23 +1,35 @@
+/* ##################################### CREATE TRIP ##################################### */
 .createTrip {
   display: flex;
   padding-top: 40px; }
   .createTrip .planTrip {
     border: 1px solid black;
-    width: 30%; }
+    max-height: 500px;
+    overflow: scroll;
+    width: 30%;
+  }
   .createTrip .worldMap {
     width: 70%; }
 
+/* ##################################### PLAN TRIP ##################################### */
+
 .planTripForm div {
   display: flex;
-  flex-direction: column; }
+  flex-direction: column;
+}
+
 .planTripForm .planTripCalendar {
   margin-top: 40px; }
 
 .planTripHeaders {
   text-align: center; }
 
+/* ##################################### NAV BAR ##################################### */
+
 .nav-wrapper {
   background-color: lightgreen; }
+
+/* ##################################### MODAL ##################################### */
 
 .modalCalendar {
   display: flex;
@@ -41,4 +53,3 @@
 .modalCalendarDivs h2{
   text-align: center;
 }
-/*# sourceMappingURL=styles.css.map */
