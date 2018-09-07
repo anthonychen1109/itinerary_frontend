@@ -16,7 +16,16 @@
 .planTripHeaders {
   text-align: center; }
 
-.nav {
-  background-color: red; }
+.nav-wrapper {
+  background-color: cyan; }
 
 /*# sourceMappingURL=styles.css.map */
+
+
+.username_login {
+  max-width: 250px;
+}
+
+.password_login {
+  max-width: 250px;
+}
