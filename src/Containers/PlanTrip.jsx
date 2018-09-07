@@ -6,7 +6,21 @@ import TripInput from './TripInput';
 class PlanTrip extends Component {
 
   state = {
-    numTrips: 5
+    numTrips: 0,
+    allLocations: {},
+    allTrips: [],
+    value: ''
+  }
+
+  componentDidMount() {
+    fetch("http://localhost:3000/trips").then( r => r.json())
+    .then(data => this.setState({ allTrips: data }, this.getNumTrips))
+  }
+
+  getNumTrips = () => {
+    this.state.allTrips.map( trip => {
+      this.setState({ numTrips: trip.all_trips })
+    })
   }
 
   onAddTrip = (e) => {
@@ -16,11 +30,16 @@ class PlanTrip extends Component {
     });
   }
 
+
+  updateValue = e => {
+    this.setState({ value: e.target.value})
+  }
+
   render() {
     const tripInputs = [];
 
     for (let i = 0; i < this.state.numTrips; i += 1) {
-      tripInputs.push( <TripInput key={i} /> );
+      tripInputs.push( <TripInput key={i} additionLocationValue={this.state.value} updateValue={this.updateValue}/> );
     };
 
     return (
