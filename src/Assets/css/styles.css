@@ -17,7 +17,7 @@
   text-align: center; }
 
 .nav-wrapper {
-  background-color: cyan; }
+  background-color: lightgreen; }
 
 .modalCalendar {
   display: flex;
@@ -42,12 +42,3 @@
   text-align: center;
 }
 /*# sourceMappingURL=styles.css.map */
-
-
-.username_login {
-  max-width: 250px;
-}
-
-.password_login {
-  max-width: 250px;
-}

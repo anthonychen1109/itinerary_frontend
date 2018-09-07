@@ -9,17 +9,48 @@ import {Route, Switch} from 'react-router-dom'
 
 class App extends Component {
 
+  state = {
+    username: '',
+    password: ''
+  }
+
+
+
+  handleUsername = (e) => {
+    this.setState({
+      username: e.target.value
+    })
+  }
+
+  handlePassword = (e) => {
+    this.setState({
+      password: e.target.value
+    })
+  }
+
+  
+
+
 
 
   render() {
+    console.log(this.state.username)
     return (
       <div>
         <NavBar />
 
         <Route exact path='/' component={Home} />
         <Route exact path='/map' component={CreateTrip} />
-        <Route exact path='/login' component={Login} />
-        <Route exact path='/register' component={Register} />
+        <Route exact path='/login' render={() => <Login
+          username={this.state.username}
+          password={this.state.password}
+          handleUsername={this.handleUsername}
+          handlePassword={this.handlePassword} />} />
+        <Route exact path='/register' render={() => <Register
+          username={this.state.username}
+          password={this.state.password}
+          handleUsername={this.handleUsername}
+          handlePassword={this.handlePassword}  />} />
       </div>
     );
   }
