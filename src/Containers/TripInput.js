@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const TripInput = (props) => {
-  return (
-    <input className="tripInput" value={props.destination} placeholder="Add a location" />
-  )
+class TripInput extends Component {
+  state = {
+    destination: ""
+  }
+
+  render() {
+    console.log(this.props);
+    return (
+      <div className="tripInputDiv">
+        <input className="tripInput" value={this.props.destination} placeholder="Add a location" onChange={this.props.modifyDestination}/>
+        <button className="tripInputDeleteButton">x</button>
+      </div>
+    )
+  }
 }
 
 export default TripInput;

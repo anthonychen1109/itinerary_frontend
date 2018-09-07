@@ -6,7 +6,7 @@ class WorldMap extends React.Component {
     const GoogleMapLocation = withGoogleMap(props => (
      <GoogleMap
        defaultCenter = { { lat: 40.701074, lng: -73.987064 } }
-       defaultZoom = { 13 }
+       defaultZoom = { 2 }
      >
      </GoogleMap>
     ));

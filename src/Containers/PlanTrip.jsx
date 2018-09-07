@@ -9,7 +9,8 @@ class PlanTrip extends Component {
     numTrips: 0,
     allLocations: {},
     allTrips: [],
-    destinations: []
+    destinations: [],
+    destination: ''
   }
 
   componentDidMount() {
@@ -30,8 +31,12 @@ class PlanTrip extends Component {
     });
   }
 
+  modifyDestination = (e) => {
+    this.setState({ destination: e.target.value }, () => console.log(this.state.destination))
+  }
+
   render() {
-    const renderTrips = this.state.destinations.map( (destination, index) => <TripInput key={index} destination={destination} />)
+    const renderTrips = this.state.destinations.map( (destination, index) => <TripInput key={index} destination={destination} modifyDestination={this.modifyDestination}/>)
     return (
       <div>
         <form>
