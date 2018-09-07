@@ -9,7 +9,7 @@ class PlanTrip extends Component {
     numTrips: 0,
     allLocations: {},
     allTrips: [],
-    value: ''
+    destinations: []
   }
 
   componentDidMount() {
@@ -19,7 +19,7 @@ class PlanTrip extends Component {
 
   getNumTrips = () => {
     this.state.allTrips.map( trip => {
-      this.setState({ numTrips: trip.all_trips })
+      this.setState({ numTrips: trip.all_trips, destinations: trip.destinations })
     })
   }
 
@@ -30,18 +30,8 @@ class PlanTrip extends Component {
     });
   }
 
-
-  updateValue = e => {
-    this.setState({ value: e.target.value})
-  }
-
   render() {
-    const tripInputs = [];
-
-    for (let i = 0; i < this.state.numTrips; i += 1) {
-      tripInputs.push( <TripInput key={i} additionLocationValue={this.state.value} updateValue={this.updateValue}/> );
-    };
-
+    const renderTrips = this.state.destinations.map( (destination, index) => <TripInput key={index} destination={destination} />)
     return (
       <div>
         <form>
@@ -51,15 +41,15 @@ class PlanTrip extends Component {
             <input placeholder="Starting Location" size="large" value={this.props.tripStartingLocation} name="tripStart" onChange={this.props.updateTripStartEnd}/>
           </div>
           <div>
-            <input placeholder="Ending Location" size="large" value={this.props.tripEndingLocation} name="tripEnd" onChange={this.props.updateTripStartEnd}/>
+            <h5>Locations: </h5>
+            {renderTrips}
           </div>
-          <div>
-            {tripInputs}
-          </div>
-
           <button
             className="planTripAddBtn btn btn-primary"
             onClick={this.onAddTrip}>+</button>
+          <div>
+            <input placeholder="Ending Location" size="large" value={this.props.tripEndingLocation} name="tripEnd" onChange={this.props.updateTripStartEnd}/>
+          </div>
 
           <div className="planTripSelectButton">
             <TripModal />
