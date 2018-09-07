@@ -14,17 +14,16 @@ const customStyles = {
 };
 
 class TripModal extends Component {
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      modalIsOpen: false
-    };
+  state = {
+    modalIsOpen: false,
+    startDate: new Date(),
+    endDate: new Date()
   }
 
   componentDidMount() {
     Modal.setAppElement('body');
-}
+  }
 
   openModal = (e) => {
     e.preventDefault()
@@ -35,8 +34,16 @@ class TripModal extends Component {
     this.setState({modalIsOpen: false});
   }
 
+  startDate = (startDate) => {
+    this.setState({ startDate })
+  }
+
+  endDate = (endDate) => {
+    this.setState({ endDate })
+  }
+
   render() {
-    console.log(this.state.modalIsOpen);
+    console.log(this.state.startDate);
     return (
       <div>
         <button className="btn btn-primary" onClick={this.openModal}>Select Dates</button>
@@ -46,16 +53,25 @@ class TripModal extends Component {
           style={customStyles}
         >
 
-          <h2 ref={subtitle => this.subtitle = subtitle}>Select your trip dates: </h2>
-          <button onClick={this.closeModal} className="btn btn-danger">close</button>
+          <h2 className="modalTripHeader">Select Your Trip Dates: </h2>
+          <button onClick={this.closeModal} className="modalCloseBtn btn btn-danger">X</button>
           <div className="modalCalendar">
-            <div>
-              <Calendar />
+            <div className="modalCalendarDivs">
+              <h2>Start Date</h2>
+              <Calendar
+                onChange={this.startDate}
+                value={this.state.startDate}
+                />
             </div>
-            <div>
-              <Calendar />
+            <div className="modalCalendarDivs">
+              <h2>End Date</h2>
+              <Calendar
+                onChange={this.endDate}
+                value={this.state.endDate}
+                />
             </div>
           </div>
+          <button className="modalSubmitBtn btn btn-success">Submit</button>
         </Modal>
       </div>
     )

@@ -16,14 +16,41 @@
 .planTripHeaders {
   text-align: center; }
 
+<<<<<<< HEAD
 .nav-wrapper {
   background-color: cyan; }
+=======
+.planTripAddBtn {
+  float: right;
+  border-radius: 50%;
+}
+
+.nav {
+  background-color: red; }
+>>>>>>> ca00077f38d3afdcb368bd2602c627fd8d82032e
 
 .modalCalendar {
   display: flex;
   margin: 0 auto;
 }
 
+.modalSubmitBtn {
+  display: block;
+  margin: 0 auto;
+  margin-top: 10px;
+}
+
+.modalTripHeader {
+  text-align: center;
+}
+
+.modalCloseBtn {
+  float: right;
+}
+
+.modalCalendarDivs h2{
+  text-align: center;
+}
 /*# sourceMappingURL=styles.css.map */
 
 
