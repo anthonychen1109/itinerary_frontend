@@ -4,13 +4,12 @@ import Home from './Components/Home'
 import CreateTrip from './Containers/CreateTrip';
 import './Assets/css/styles.css';
 import Login from './Components/Login'
+import Register from './Components/Register'
 import {Route, Switch} from 'react-router-dom'
 
 class App extends Component {
 
-  state = {
-    username: ''
-  }
+
 
   render() {
     return (
@@ -19,8 +18,8 @@ class App extends Component {
 
         <Route exact path='/' component={Home} />
         <Route exact path='/map' component={CreateTrip} />
-        <Route exact path='/login' render={() => <Login form={this.state.username} /> } />
-
+        <Route exact path='/login' component={Login} />
+        <Route exact path='/register' component={Register} />
       </div>
     );
   }
