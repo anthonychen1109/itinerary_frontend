@@ -19,7 +19,7 @@ class PlanTrip extends Component {
     const tripInputs = [];
 
     for (let i = 0; i < this.state.numTrips; i += 1) {
-      tripInputs.push( <TripInput /> );
+      tripInputs.push( <TripInput key={i} /> );
     };
 
     return (
@@ -31,8 +31,7 @@ class PlanTrip extends Component {
             <input placeholder="Starting Location" size="large" value={this.props.tripStart} name="tripStart"/>
           </div>
           <div>
-            <h3 className="planTripHeaders">
-            </h3>
+
             <input  placeholder="Ending Location" size="large" value={this.props.tripEnd} name="tripEnd"/>
           </div>
           <div>

@@ -15,7 +15,7 @@ export default class NavBar extends Component {
       <nav>
         <div className="nav-wrapper">
           <Link to="/">
-          <img src={require('../logo.png')} />
+          <img alt="logo" src={require('../logo.png')} />
           </Link>
           <ul id="nav-mobile" className="right hide-on-med-and-down">
             <li><Link className="waves-effect waves-teal btn-flat" to="/">Home</Link></li>
