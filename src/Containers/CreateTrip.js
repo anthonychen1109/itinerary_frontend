@@ -5,8 +5,9 @@ import WorldMap from './WorldMap';
 class CreateTrip extends Component {
 
   state = {
-    tripStart: '',
-    tripEnd: ''
+    tripStartingLocation: '',
+    tripEndingLocation: '',
+    additionalTripLocations: ''
   }
 
   updateTripStartEnd = (e) => {
@@ -17,7 +18,12 @@ class CreateTrip extends Component {
     return (
       <div className="createTrip container">
         <div className="planTrip">
-          <PlanTrip tripStart={this.state.tripStart} tripEnd={this.state.tripEnd}/>
+          <PlanTrip
+            tripStart={this.state.tripStartingLocation}
+            tripEnd={this.state.tripEndingLocation}
+            updateTripStartEnd={this.updateTripStartEnd}
+            additionalTripLocations={this.state.additionalTripLocations}
+            />
         </div>
         <div className="worldMap">
           <WorldMap />

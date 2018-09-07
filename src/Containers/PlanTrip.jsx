@@ -9,7 +9,8 @@ class PlanTrip extends Component {
     numTrips: 5
   }
 
-  onAddTrip = () => {
+  onAddTrip = (e) => {
+    e.preventDefault()
     this.setState({
       numTrips: this.state.numTrips + 1
     });
@@ -28,11 +29,10 @@ class PlanTrip extends Component {
           <div className="planTripForm input-field inline">
             <h3 className="planTripHeaders">
             </h3>
-            <input placeholder="Starting Location" size="large" value={this.props.tripStart} name="tripStart"/>
+            <input placeholder="Starting Location" size="large" value={this.props.tripStartingLocation} name="tripStart" onChange={this.props.updateTripStartEnd}/>
           </div>
           <div>
-
-            <input  placeholder="Ending Location" size="large" value={this.props.tripEnd} name="tripEnd"/>
+            <input placeholder="Ending Location" size="large" value={this.props.tripEndingLocation} name="tripEnd" onChange={this.props.updateTripStartEnd}/>
           </div>
           <div>
             {tripInputs}

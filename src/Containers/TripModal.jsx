@@ -43,7 +43,6 @@ class TripModal extends Component {
   }
 
   render() {
-    console.log(this.state.startDate);
     return (
       <div>
         <button className="btn btn-primary" onClick={this.openModal}>Select Dates</button>
