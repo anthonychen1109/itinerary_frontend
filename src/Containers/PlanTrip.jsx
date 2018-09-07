@@ -1,17 +1,27 @@
 import React, { Component } from 'react';
 import Calendar from 'react-calendar';
+import TripModal from './TripModal';
+import TripInput from './TripInput';
 
 class PlanTrip extends Component {
 
   state = {
-    date: new Date()
+    numTrips: 5
   }
 
-  handleChange = (date) => {
-    this.setState({ date })
+  onAddTrip = () => {
+    this.setState({
+      numTrips: this.state.numTrips + 1
+    });
   }
 
   render() {
+    const tripInputs = [];
+
+    for (let i = 0; i < this.state.numTrips; i += 1) {
+      tripInputs.push( <TripInput /> );
+    };
+
     return (
       <div>
         <form>
@@ -25,8 +35,16 @@ class PlanTrip extends Component {
             </h3>
             <input  placeholder="Ending Location" size="large" value={this.props.tripEnd} name="tripEnd"/>
           </div>
-          <div className="planTripCalendar">
-            <Calendar onChange={this.handleChange} value={this.state.date}/>
+          <div>
+            {tripInputs}
+          </div>
+
+          <button
+            className="planTripAddBtn btn btn-primary"
+            onClick={this.onAddTrip}>+</button>
+
+          <div className="planTripSelectButton">
+            <TripModal />
           </div>
         </form>
       </div>
