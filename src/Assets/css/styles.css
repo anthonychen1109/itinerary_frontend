@@ -16,6 +16,11 @@
 .planTripHeaders {
   text-align: center; }
 
+.planTripAddBtn {
+  float: right;
+  border-radius: 50%;
+}
+
 .nav {
   background-color: red; }
 
