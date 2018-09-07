@@ -7,6 +7,10 @@
   transform: translate(50%,-50%);
 }
 
+::placeholder {
+  color: black;
+}
+
 /* ##################################### HOME ##################################### */
 .homeDiv {
   background: url(../images/background.gif) no-repeat center center fixed;
@@ -43,10 +47,82 @@
 .planTripHeaders {
   text-align: center; }
 
+.planTripInputs {
+  padding: 10px;
+}
+
+.planTripAddBtn {
+  margin: 10px;
+}
+
+.planTripSelectButton {
+  margin: 10px;
+}
+
 /* ##################################### NAV BAR ##################################### */
 
 .nav-wrapper {
-  background-color: lightgreen; }
+  background-color: lightgreen;
+}
+
+/* ##################################### LOGIN ##################################### */
+.loginPage {
+  background: url(../images/login.jpg) no-repeat center center fixed;
+ -webkit-background-size: cover;
+ -moz-background-size: cover;
+ -o-background-size: cover;
+ background-size: cover;
+ height: 100vh;
+}
+
+.loginDiv {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%,-50%);
+}
+
+.loginDiv h3 {
+  text-align: center;
+}
+
+.loginButton {
+  text-align: center;
+}
+
+.validate {
+  min-width: 300px;
+}
+
+/* ##################################### REGISTER ##################################### */
+.registerPage {
+  background: url(../images/login.jpg) no-repeat center center fixed;
+ -webkit-background-size: cover;
+ -moz-background-size: cover;
+ -o-background-size: cover;
+ background-size: cover;
+ height: 100vh;
+}
+
+.signUpHeader {
+  text-align: center;
+  padding: 0;
+}
+
+.registerForm {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%,-50%);
+}
+
+.registerSubmitButton {
+  text-align: center;
+}
 
 /* ##################################### MODAL ##################################### */
 

@@ -45,7 +45,7 @@ class TripModal extends Component {
   render() {
     return (
       <div>
-        <button className="btn btn-primary" onClick={this.openModal}>Select Dates</button>
+        <button className="btn btn-primary" onClick={this.openModal}>Select Trip Dates</button>
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}
