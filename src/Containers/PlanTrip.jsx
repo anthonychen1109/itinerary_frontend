@@ -5,6 +5,10 @@ import TripModal from './TripModal';
 
 class PlanTrip extends Component {
 
+  state = {
+    
+  }
+
   render() {
     return (
       <div>

@@ -14,14 +14,11 @@ const customStyles = {
 };
 
 class TripModal extends Component {
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      modalIsOpen: false,
-      startDate: new Date(),
-      endDate: new Date()
-    };
+  state = {
+    modalIsOpen: false,
+    startDate: new Date(),
+    endDate: new Date()
   }
 
   componentDidMount() {
@@ -46,6 +43,7 @@ class TripModal extends Component {
   }
 
   render() {
+    console.log(this.state.startDate);
     return (
       <div>
         <button className="btn btn-primary" onClick={this.openModal}>Select Dates</button>
