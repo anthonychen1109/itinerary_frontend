@@ -4,10 +4,10 @@ export default class Home extends Component {
 
   render () {
     return (
-      <div>
-      <center>
-      <h1>Welcome to Globetrotters</h1>
-      </center>
+      <div className="homeDiv">
+        <div className="welcome">
+          <h1>Welcome to Globetrotters</h1>
+        </div>
       </div>
     )
   }
