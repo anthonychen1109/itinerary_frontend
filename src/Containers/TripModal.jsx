@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
+import Calendar from 'react-calendar';
 
 const customStyles = {
   content : {
@@ -21,18 +22,16 @@ class TripModal extends Component {
     };
   }
 
+  componentDidMount() {
+    Modal.setAppElement('body');
+}
 
-  openModal(e) {
+  openModal = (e) => {
     e.preventDefault()
     this.setState({modalIsOpen: true});
   }
 
-  afterOpenModal() {
-    // references are now sync'd and can be accessed.
-    this.subtitle.style.color = '#f00';
-  }
-
-  closeModal() {
+  closeModal = () => {
     this.setState({modalIsOpen: false});
   }
 
@@ -43,22 +42,20 @@ class TripModal extends Component {
         <button className="btn btn-primary" onClick={this.openModal}>Select Dates</button>
         <Modal
           isOpen={this.state.modalIsOpen}
-          onAfterOpen={this.afterOpenModal}
           onRequestClose={this.closeModal}
           style={customStyles}
-          contentLabel="Example Modal"
         >
 
-          <h2 ref={subtitle => this.subtitle = subtitle}>Hello</h2>
-          <button onClick={this.closeModal}>close</button>
-          <div>I am a modal</div>
-          <form>
-            <input />
-            <button>tab navigation</button>
-            <button>stays</button>
-            <button>inside</button>
-            <button>the modal</button>
-          </form>
+          <h2 ref={subtitle => this.subtitle = subtitle}>Select your trip dates: </h2>
+          <button onClick={this.closeModal} className="btn btn-danger">close</button>
+          <div className="modalCalendar">
+            <div>
+              <Calendar />
+            </div>
+            <div>
+              <Calendar />
+            </div>
+          </div>
         </Modal>
       </div>
     )
