@@ -2,7 +2,7 @@ import React from 'react';
 
 const TripInput = (props) => {
   return (
-    <input value={props.destination} placeholder="Add a location" />
+    <input defaultValue={props.destination} placeholder="Add a location" />
   )
 }
 

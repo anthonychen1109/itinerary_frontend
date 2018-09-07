@@ -12,6 +12,8 @@ class PlanTrip extends Component {
     destinations: []
   }
 
+  
+
   componentDidMount() {
     fetch("http://localhost:3000/trips").then( r => r.json())
     .then(data => this.setState({ allTrips: data }, this.getNumTrips))
