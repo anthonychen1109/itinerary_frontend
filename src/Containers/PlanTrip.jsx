@@ -34,6 +34,14 @@ class PlanTrip extends Component {
     // this.setState({
     //   numTrips: this.state.numTrips + 1
     // });
+    const newLocation = this.state.tripName
+    this.setState({
+      destinations: [...this.state.destinations, newLocation],
+      tripName: '',
+      tripCity: '',
+      tripState: '',
+      tripCountry: ''
+    })
     console.log("added trip testing");
   }
 
