@@ -14,8 +14,6 @@ class App extends Component {
     password: ''
   }
 
-
-
   handleUsername = (e) => {
     this.setState({
       username: e.target.value
@@ -28,16 +26,10 @@ class App extends Component {
     })
   }
 
-
-
-
-
-
   render() {
     return (
       <div>
         <NavBar />
-
         <Route exact path='/' component={Home} />
         <Route exact path='/map' component={CreateTrip} />
         <Route exact path='/login' render={() => <Login

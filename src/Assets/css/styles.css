@@ -59,6 +59,13 @@
   margin: 10px;
 }
 
+.tripInputDiv {
+  display: flex;
+}
+
+.tripInputDeleteButton {
+  max-height: 30px; 
+}
 /* ##################################### NAV BAR ##################################### */
 
 .nav-wrapper {
