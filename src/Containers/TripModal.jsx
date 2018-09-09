@@ -51,9 +51,8 @@ class TripModal extends Component {
           onRequestClose={this.closeModal}
           style={customStyles}
         >
-
+        <button onClick={this.closeModal} className="modalCloseBtn btn btn-danger">X</button>
           <h2 className="modalTripHeader">Select Your Trip Dates: </h2>
-          <button onClick={this.closeModal} className="modalCloseBtn btn btn-danger">X</button>
           <div className="modalCalendar">
             <div className="modalCalendarDivs">
               <h2>Start Date</h2>
