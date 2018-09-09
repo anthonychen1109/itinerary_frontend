@@ -9,19 +9,19 @@ class PlanTrip extends Component {
     numTrips: 0,
     allLocations: {},
     allTrips: [],
-    destinations: [],
+    destinations: ["new york", "paris", "london"],
     destination: ''
   }
 
   componentDidMount() {
-    fetch("http://localhost:3000/trips").then( r => r.json())
-    .then(data => this.setState({ allTrips: data }, this.getNumTrips))
+    // fetch("http://localhost:3000/trips").then( r => r.json())
+    // .then(data => this.setState({ allTrips: data }, this.getNumTrips))
   }
 
   getNumTrips = () => {
-    this.state.allTrips.map( trip => {
-      this.setState({ numTrips: trip.all_trips, destinations: trip.destinations })
-    })
+    // this.state.allTrips.map( trip => {
+    //   this.setState({ numTrips: trip.all_trips, destinations: trip.destinations })
+    // })
   }
 
   onAddTrip = (e) => {
