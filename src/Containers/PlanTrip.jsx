@@ -35,8 +35,21 @@ class PlanTrip extends Component {
     this.setState({ destination: e.target.value }, () => console.log(this.state.destination))
   }
 
+  deleteTrip = (destination, e) => {
+    e.preventDefault()
+    const removeDestination = destination
+    const newDestinations = this.state.destinations.filter( destination => destination !== removeDestination)
+    this.setState({ destinations: newDestinations })
+  }
+
   render() {
-    const renderTrips = this.state.destinations.map( (destination, index) => <TripInput key={index} destination={destination} modifyDestination={this.modifyDestination}/>)
+    const renderTrips = this.state.destinations.map( (destination, index) =>
+      <TripInput
+        key={index}
+        destination={destination}
+        modifyDestination={this.modifyDestination}
+        deleteTrip={this.deleteTrip}/>
+    )
     return (
       <div>
         <form>
