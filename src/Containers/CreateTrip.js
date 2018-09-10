@@ -72,6 +72,11 @@ class CreateTrip extends Component {
     this.setState({ destinations: newDestinations })
   }
 
+  deleteCoordinates = (destination, e) => {
+    e.preventDefault()
+    console.log(e);
+  }
+
   updateTripStartEnd = (e) => {
     this.setState({ [e.target.name]: e.target.value})
   }
@@ -88,12 +93,13 @@ class CreateTrip extends Component {
             additionalTripLocations={this.state.additionalTripLocations}
             tripName={this.state.tripName}
             tripCity={this.state.tripCity}
-            tripState={this.state.tripCity}
+            tripState={this.state.tripState}
             tripCountry={this.state.tripCountry}
             handleAddTrip={this.handleAddTrip}
             onAddTrip={this.onAddTrip}
             deleteTrip={this.deleteTrip}
             modifyDestination={this.modifyDestination}
+            deleteCoordinates={this.deleteCoordinates}
             />
 
         </div>
