@@ -6,119 +6,6 @@ import AddTripModal from './AddTripModal';
 
 class PlanTrip extends Component {
 
-  state = {
-    numTrips: 0,
-    allLocations: {},
-    allTrips: [],
-    destinations: ["new york", "paris", "london"],
-    destination: '',
-    tripName: '',
-    tripCity: '',
-    tripState: '',
-    tripCountry: '',
-    currentTrip: ''
-  }
-
-  componentDidMount() {
-    // fetch("http://localhost:3000/trips").then( r => r.json())
-    // .then(data => this.setState({ allTrips: data }, this.getNumTrips))
-  }
-
-  getNumTrips = () => {
-    // this.state.allTrips.map( trip => {
-    //   this.setState({ numTrips: trip.all_trips, destinations: trip.destinations })
-    // })
-  }
-
-  handleAddTrip = (e) => {
-    e.preventDefault()
-    const newLocation = this.state.tripName
-    this.setState({
-      destinations: [...this.state.destinations, newLocation],
-      tripName: '',
-      tripCity: '',
-      tripState: '',
-      tripCountry: ''
-    }, this.persistTrip)
-    // console.log("added trip testing");
-  }
-
-  onAddTrip = (e) => {
-    console.log(e.target.value);
-    this.setState({ [e.target.name]: e.target.value })
-  }
-
-  modifyDestination = (e) => {
-    this.setState({ destination: e.target.value }, () => console.log(this.state.destination))
-  }
-
-  deleteTrip = (destination, e) => {
-    e.preventDefault()
-    const removeDestination = destination
-    const newDestinations = this.state.destinations.filter( destination => destination !== removeDestination)
-    this.setState({ destinations: newDestinations })
-  }
-
-  persistTrip = (e) => {
-    e.preventDefault()
-    const findTrip = this.state.tripCity
-    const newTrip = {
-      name: this.state.tripCity,
-      city: this.state.tripCity,
-      state: this.state.tripState,
-      country: this.state.tripCountry,
-      lat: 40,
-      lng: 70
-    }
-    fetch(`http://localhost:3000/locations`)
-      .then(res => res.json())
-      .then(locations => {
-        locations.map(location => {
-          if (location.city.toLowerCase() === findTrip.toLowerCase()) {
-            console.log(location)
-          return this.setState({
-                destinations: [...this.state.destinations, location],
-                tripName: location.name,
-                tripCity: location.city,
-                tripState: location.state,
-                tripCountry: location.country
-            }, this.handleAddTrip)
-          } else {
-            fetch(`http://localhost:3000/locations`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json; charset=utf-8'
-              },
-              body: JSON.stringify({location: newTrip})
-            })
-              .then(res => res.json())
-              .then(console.log)
-            }
-        })
-      }, this.handleAddTrip)
-  }
-
-  // createNew = () => {
-  //   const newTrip = {
-  //     name: this.state.tripName,
-  //     city: this.state.tripCity,
-  //     state: this.state.tripState,
-  //     country: this.state.tripCountry,
-  //     lat: 40,
-  //     lng: 70
-  //   }
-  //   fetch(`http://localhost:3000/locations`, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json; charset=utf-8'
-  //     },
-  //     body: JSON.stringify({location: newTrip})
-  //   })
-  //     .then(res => res.json())
-  //     .then(console.log)
-  //   }
-  // }
-
   render() {
     const renderTrips = this.props.destinations.map( (destination, index) =>
       <TripInput
@@ -129,7 +16,7 @@ class PlanTrip extends Component {
     )
     return (
       <div className="planTripAddBtn">
-        <form>
+        <div id="form">
           <div className="planTripForm input-field inline">
             <h3 className="planTripHeaders">
               Plan Your Trip
@@ -143,11 +30,12 @@ class PlanTrip extends Component {
           <div className="planTripAdd">
             <AddTripModal
               onAddTrip={this.props.onAddTrip}
-              handleAddTrip={this.persistTrip}
+              handleAddTrip={this.props.handleAddTrip}
               tripName={this.props.tripName}
               tripCity={this.props.tripCity}
               tripState={this.props.tripState}
-              tripCountry={this.props.tripCountry}/>
+              tripCountry={this.props.tripCountry}
+              findTrip={this.props.findTrip}/>
             <p className="planTripAddP">Add another location</p>
           </div>
           <div>
@@ -157,7 +45,7 @@ class PlanTrip extends Component {
           <div className="planTripSelectButton">
             <TripModal />
           </div>
-        </form>
+        </div>
       </div>
     )
   }

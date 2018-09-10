@@ -11,31 +11,36 @@ class CreateTrip extends Component {
     numTrips: 0,
     allLocations: {},
     allTrips: [],
-    destinations: ["Japan", "Spain", "Austrailia"],
+    destinations: [],
     destination: '',
     tripName: '',
     tripCity: '',
     tripState: '',
-    tripCountry: '',
-    coordinates: []
+    tripCountry: 'France',
+    coordinates: [],
+    currentTrip: ''
   }
 
   componentDidMount() {
     fetch("http://localhost:3000/trips").then( r => r.json())
-    .then(data => this.setState({ allTrips: data }, this.getNumTrips))
+    .then(data => this.setState({ allTrips: data}, this.getNumTrips))
   }
 
   getNumTrips = () => {
-    this.state.allTrips.map( trip => {
-      this.setState({ numTrips: trip.locations.length, destinations: trip.locations }, this.getCoordinates)
+    return this.state.allTrips.map( trip => {
+      this.setState({ numTrips: trip.locations.length, destinations: trip.locations, currentTrip: trip }, () => this.getCoordinates())
     })
   }
 
   getCoordinates = () => {
-    this.state.destinations.map( destination => {
-      this.setState(prevState => ({
-        coordinates: [...prevState.coordinates, [destination.lat, destination.lng]]
-      }))
+    console.log('test');
+    // console.log(this.state.destinations)
+    let arr = this.state.destinations.map( destination => {
+      return destination
+
+    })
+    this.setState({
+      destinations: arr
     })
   }
 
@@ -74,8 +79,8 @@ class CreateTrip extends Component {
 
   deleteCoordinates = () => {
     this.setState({ coordinates: [] })
-    this.state.destinations.map( destination => {
-      this.setState(prevState => ({
+  return this.state.destinations.map( destination => {
+    return this.setState(prevState => ({
         coordinates: [...prevState.coordinates, [destination.lat, destination.lng]]
       }))
     })
@@ -85,8 +90,50 @@ class CreateTrip extends Component {
     this.setState({ [e.target.name]: e.target.value})
   }
 
+
+  findTrip = (e) => {
+    e.preventDefault()
+    return fetch(`http://localhost:3000/locations`)
+      .then(res => res.json())
+      .then(locations => {
+        return locations.find(location => {
+          return location.country === this.state.tripCountry ? this.setDestinations(location) : null
+        })
+      })
+
+  }
+
+  setDestinations = (location) => {
+    this.setState({
+      destinations: [...this.state.destinations, location ],
+      destination: location,
+      tripName: location.name,
+      tripCity: location.city,
+      tripState: location.state,
+      tripCountry: location.country
+    }, () => this.persistDestination(location))
+  }
+
+  persistDestination = (location) => {
+    
+    const newLocation = {trip_id: this.state.currentTrip.id, location_id: location.id}
+    console.log(newLocation)
+    return fetch(`http://localhost:3000/trip_locations`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newLocation)
+    })
+      .then(res => res.json())
+      .then(console.log)
+  }
+
+
+
   render() {
-    console.log(this.state.coordinates);
+    // console.log(this.state.coordinates);
+    // console.log(this.state.currentTrip)
     return (
       <div className="createTrip container">
         <div className="planTrip">
@@ -105,6 +152,8 @@ class CreateTrip extends Component {
             deleteTrip={this.deleteTrip}
             modifyDestination={this.modifyDestination}
             deleteCoordinates={this.deleteCoordinates}
+            findTrip={this.findTrip}
+
             />
 
         </div>
