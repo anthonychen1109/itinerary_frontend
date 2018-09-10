@@ -15,7 +15,8 @@ class PlanTrip extends Component {
     tripName: '',
     tripCity: '',
     tripState: '',
-    tripCountry: ''
+    tripCountry: '',
+    currentTrip: ''
   }
 
   componentDidMount() {
@@ -41,8 +42,8 @@ class PlanTrip extends Component {
       tripCity: '',
       tripState: '',
       tripCountry: ''
-    })
-    console.log("added trip testing");
+    }, this.persistTrip)
+    // console.log("added trip testing");
   }
 
   onAddTrip = (e) => {
@@ -59,6 +60,28 @@ class PlanTrip extends Component {
     const removeDestination = destination
     const newDestinations = this.state.destinations.filter( destination => destination !== removeDestination)
     this.setState({ destinations: newDestinations })
+  }
+
+  persistTrip = () => {
+    const findTrip = this.state.tripCity
+    fetch(`http://localhost:3000/locations`)
+      .then(res => res.json())
+      .then(locations => {
+        locations.map(location => {
+          if (location.city.toLowerCase() === findTrip.toLowerCase()) {
+            console.log(location)
+            this.setState({
+                destinations: [...this.state.destinations, location],
+                tripName: location.name,
+                tripCity: location.city,
+                tripState: location.state,
+                tripCountry: location.country
+            })
+          } else {
+            console.log("NOTHING")
+          }
+        })
+      }, () => console.log(this.state.destinations))
   }
 
   render() {
