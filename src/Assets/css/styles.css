@@ -55,6 +55,14 @@
   margin: 10px;
 }
 
+.planTripAdd {
+  display: flex;
+}
+
+.planTripAddP {
+  margin-left: 10px;
+}
+
 .planTripSelectButton {
   margin: 10px;
 }
@@ -64,7 +72,7 @@
 }
 
 .tripInputDeleteButton {
-  max-height: 30px; 
+  max-height: 30px;
 }
 /* ##################################### NAV BAR ##################################### */
 
@@ -131,7 +139,7 @@
   text-align: center;
 }
 
-/* ##################################### MODAL ##################################### */
+/* ##################################### TRIP MODAL ##################################### */
 
 .modalCalendar {
   display: flex;
@@ -154,4 +162,15 @@
 
 .modalCalendarDivs h2{
   text-align: center;
+}
+
+/* ##################################### ADD TRIP MODAL ##################################### */
+
+.addTripModalActionButtons {
+  display: flex;
+  justify-content: center;
+}
+
+.addTripModalActionButtons button {
+  margin: 10px;
 }

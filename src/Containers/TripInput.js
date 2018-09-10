@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
 
-<<<<<<< HEAD
-const TripInput = (props) => {
-  return (
-  <input className="tripInput" defaultValue={props.destination} placeholder="Add a location" />
-  )
-=======
 class TripInput extends Component {
 
   render() {
@@ -18,7 +12,6 @@ class TripInput extends Component {
       </div>
     )
   }
->>>>>>> c1ff7ae0d43a69b73f2ef332b04e84788f6c0a4e
 }
 
 export default TripInput;

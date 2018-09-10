@@ -5,13 +5,15 @@ import CreateTrip from './Containers/CreateTrip';
 import './Assets/css/styles.css';
 import Login from './Components/Login'
 import Register from './Components/Register'
-import {Route, Switch} from 'react-router-dom'
+import {Route} from 'react-router-dom'
 
 class App extends Component {
 
   state = {
     username: '',
-    password: ''
+    password: '',
+    trips: [],
+    avatar_url: ''
   }
 
   handleUsername = (e) => {
@@ -26,7 +28,25 @@ class App extends Component {
     })
   }
 
+  handleAvatar = (e) => {
+    this.setState({
+      avatar_url: e.target.value
+    })
+  }
+
+  setAuthToken = (resp) => {
+    this.setState({
+      auth_token: resp.token
+    })
+  }
+
+
+
+
+
+
   render() {
+    console.log(this.state.auth_token)
     return (
       <div>
         <NavBar />
@@ -35,11 +55,14 @@ class App extends Component {
         <Route exact path='/login' render={() => <Login
           username={this.state.username}
           password={this.state.password}
+          auth_token={this.props.auth_token}
           handleUsername={this.handleUsername}
           handlePassword={this.handlePassword} />} />
         <Route exact path='/register' render={() => <Register
           username={this.state.username}
           password={this.state.password}
+          avatar_url={this.state.avatar_url}
+          handleAvatar={this.handleAvatar}
           handleUsername={this.handleUsername}
           handlePassword={this.handlePassword}  />} />
       </div>

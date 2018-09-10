@@ -35,25 +35,30 @@ class AddTripModal extends Component {
     return (
       <div>
         <button className="btn btn-primary" onClick={this.openModal}>+</button>
+
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}
           style={customStyles}
         >
+
         <button onClick={this.closeModal} className="modalCloseBtn btn btn-danger">X</button>
           <h2 className="modalTripHeader">Add Another Destination: </h2>
+            <form onSubmit={this.props.findTrip}>
           <div>
-            <input type="text" placeholder={"Please Enter Location Name"} name="tripName" value={this.props.tripName} onChange={this.props.onAddTrip}/>
-            <input type="text" placeholder={"Please Enter Location City"} name="tripCity" value={this.props.tripCity}
+            <input type="text" placeholder={"Please Enter Location Name"} name="tripName" value={'France'} onChange={this.props.onAddTrip}/>
+            <input type="text" placeholder={"Please Enter Location City"} name="tripCity" value={'France'}
               onChange={this.props.onAddTrip}/>
-            <input type="text" placeholder={"Please Enter Location State"} name="tripState" value={this.props.tripState} onChange={this.props.onAddTrip}/>
-            <input type="text" placeholder={"Please Enter Location Country"} name="tripCountry" value={this.props.tripCountry} onChange={this.props.onAddTrip}/>
+            <input type="text" placeholder={"Please Enter Location State"} name="tripState" value={'France'} onChange={this.props.onAddTrip}/>
+            <input type="text" placeholder={"Please Enter Location Country"} name="tripCountry" value={'France'} onChange={this.props.onAddTrip}/>
           </div>
           <div className="addTripModalActionButtons">
-            <button className="btn btn-success" onClick={this.props.handleAddTrip}>Add</button>
+            <input type="submit" className="btn btn-success" />
             <button onClick={this.closeModal} className="modalCloseBtn btn btn-success">Done</button>
           </div>
+          </form>
         </Modal>
+
       </div>
     )
   }
