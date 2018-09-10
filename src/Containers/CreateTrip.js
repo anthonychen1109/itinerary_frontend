@@ -69,7 +69,16 @@ class CreateTrip extends Component {
     e.preventDefault()
     const removeDestination = destination
     const newDestinations = this.state.destinations.filter( destination => destination.country !== removeDestination)
-    this.setState({ destinations: newDestinations })
+    this.setState({ destinations: newDestinations }, this.deleteCoordinates)
+  }
+
+  deleteCoordinates = () => {
+    this.setState({ coordinates: [] })
+    this.state.destinations.map( destination => {
+      this.setState(prevState => ({
+        coordinates: [...prevState.coordinates, [destination.lat, destination.lng]]
+      }))
+    })
   }
 
   updateTripStartEnd = (e) => {
@@ -77,6 +86,7 @@ class CreateTrip extends Component {
   }
 
   render() {
+    console.log(this.state.coordinates);
     return (
       <div className="createTrip container">
         <div className="planTrip">
@@ -88,12 +98,13 @@ class CreateTrip extends Component {
             additionalTripLocations={this.state.additionalTripLocations}
             tripName={this.state.tripName}
             tripCity={this.state.tripCity}
-            tripState={this.state.tripCity}
+            tripState={this.state.tripState}
             tripCountry={this.state.tripCountry}
             handleAddTrip={this.handleAddTrip}
             onAddTrip={this.onAddTrip}
             deleteTrip={this.deleteTrip}
             modifyDestination={this.modifyDestination}
+            deleteCoordinates={this.deleteCoordinates}
             />
 
         </div>

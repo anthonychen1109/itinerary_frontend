@@ -132,6 +132,7 @@ class PlanTrip extends Component {
         <form>
           <div className="planTripForm input-field inline">
             <h3 className="planTripHeaders">
+              Plan Your Trip
             </h3>
             <input placeholder="Starting Location" size="large" value={this.props.tripStartingLocation} name="tripStart" onChange={this.props.updateTripStartEnd}/>
           </div>
