@@ -32,9 +32,6 @@ class PlanTrip extends Component {
 
   handleAddTrip = (e) => {
     e.preventDefault()
-    // this.setState({
-    //   numTrips: this.state.numTrips + 1
-    // });
     const newLocation = this.state.tripName
     this.setState({
       destinations: [...this.state.destinations, newLocation],
@@ -62,27 +59,65 @@ class PlanTrip extends Component {
     this.setState({ destinations: newDestinations })
   }
 
-  persistTrip = () => {
+  persistTrip = (e) => {
+    e.preventDefault()
     const findTrip = this.state.tripCity
+    const newTrip = {
+      name: this.state.tripCity,
+      city: this.state.tripCity,
+      state: this.state.tripState,
+      country: this.state.tripCountry,
+      lat: 40,
+      lng: 70
+    }
     fetch(`http://localhost:3000/locations`)
       .then(res => res.json())
       .then(locations => {
         locations.map(location => {
           if (location.city.toLowerCase() === findTrip.toLowerCase()) {
             console.log(location)
-            this.setState({
+          return this.setState({
                 destinations: [...this.state.destinations, location],
                 tripName: location.name,
                 tripCity: location.city,
                 tripState: location.state,
                 tripCountry: location.country
-            })
+            }, this.handleAddTrip)
           } else {
-            console.log("NOTHING")
-          }
+            fetch(`http://localhost:3000/locations`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+              },
+              body: JSON.stringify({location: newTrip})
+            })
+              .then(res => res.json())
+              .then(console.log)
+            }
         })
-      }, () => console.log(this.state.destinations))
+      }, this.handleAddTrip)
   }
+
+  // createNew = () => {
+  //   const newTrip = {
+  //     name: this.state.tripName,
+  //     city: this.state.tripCity,
+  //     state: this.state.tripState,
+  //     country: this.state.tripCountry,
+  //     lat: 40,
+  //     lng: 70
+  //   }
+  //   fetch(`http://localhost:3000/locations`, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json; charset=utf-8'
+  //     },
+  //     body: JSON.stringify({location: newTrip})
+  //   })
+  //     .then(res => res.json())
+  //     .then(console.log)
+  //   }
+  // }
 
   render() {
     const renderTrips = this.props.destinations.map( (destination, index) =>
@@ -107,7 +142,7 @@ class PlanTrip extends Component {
           <div className="planTripAdd">
             <AddTripModal
               onAddTrip={this.props.onAddTrip}
-              handleAddTrip={this.props.handleAddTrip}
+              handleAddTrip={this.persistTrip}
               tripName={this.props.tripName}
               tripCity={this.props.tripCity}
               tripState={this.props.tripState}
