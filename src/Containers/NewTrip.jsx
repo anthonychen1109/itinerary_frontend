@@ -12,7 +12,9 @@ class NewTrip extends Component {
     endingLocation: '',
     tripName: '',
     coordinates: '',
-    currentTrip: ''
+    currentTrip: '',
+    startDate: '',
+    endDate: ''
   }
 
   addStartLocation = (e) => {
@@ -54,6 +56,15 @@ class NewTrip extends Component {
     this.setState({ [e.target.name]: e.target.value})
   }
 
+  handleDates = (dates) => {
+    const parseDates = dates.map(date => {
+      return (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear()
+    })
+    this.setState({
+      startDate: parseDates[0],
+      endDate: parseDates[1]
+    }, () => console.log(this.state.startDate, this.state.endDate))
+  }
 
   findTrip = (e) => {
     e.preventDefault()
@@ -107,6 +118,7 @@ class NewTrip extends Component {
             handleAddTrip={this.handleAddTrip}
             findTrip={this.findTrip}
             coordinates={this.state.coordinates}
+            handleDates={this.handleDates}
             />
         </div>
         <div className="worldMap">

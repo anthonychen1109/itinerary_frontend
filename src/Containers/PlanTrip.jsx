@@ -40,7 +40,7 @@ class PlanTrip extends Component {
           </div>
 
           <div className="planTripSelectButton">
-            <TripModal />
+            <TripModal handleDates={this.props.handleDates} />
           </div>
         </div>
       </div>

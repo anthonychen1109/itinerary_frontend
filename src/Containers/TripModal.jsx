@@ -42,16 +42,24 @@ class TripModal extends Component {
     this.setState({ endDate })
   }
 
+  sendDates = (e) => {
+    e.preventDefault()
+    const dates = [this.state.startDate, this.state.endDate]
+    this.props.handleDates(dates)
+  }
+
   render() {
     return (
       <div>
         <button className="btn btn-primary" onClick={this.openModal}>Select Trip Dates</button>
+
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}
           style={customStyles}
         >
         <button onClick={this.closeModal} className="modalCloseBtn btn btn-danger">X</button>
+          <form onSubmit={this.sendDates}>
           <h2 className="modalTripHeader">Select Your Trip Dates: </h2>
           <div className="modalCalendar">
             <div className="modalCalendarDivs">
@@ -69,7 +77,8 @@ class TripModal extends Component {
                 />
             </div>
           </div>
-          <button className="modalSubmitBtn btn btn-success">Submit</button>
+          <input type="submit" className="modalSubmitBtn btn btn-success"/>
+          </form>
         </Modal>
       </div>
     )
