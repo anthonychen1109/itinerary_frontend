@@ -19,6 +19,7 @@ export default class NavBar extends Component {
             <li><Link className="waves-effect waves-teal btn-flat" to="/">Home</Link></li>
             <li><Link className="waves-effect waves-teal btn-flat" to="/login">Login</Link></li>
             <li><Link className="waves-effect waves-teal btn-flat" to="/register">Register</Link></li>
+            <li><Link className="waves-effect waves-teal btn-flat" to="/profile">Profile</Link></li>
             <li><Link className="waves-effect waves-teal btn-flat" to="/map">Map</Link></li>
           </ul>
         </div>

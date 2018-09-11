@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PlanTrip from './PlanTrip';
 import WorldMap from './WorldMap';
+import { Redirect } from 'react-router-dom'
 
 class CreateTrip extends Component {
 
@@ -137,6 +138,9 @@ class CreateTrip extends Component {
 
 
   render() {
+    if (!this.props.loggedIn) {
+      return <Redirect to='/login' />
+    } else {
     return (
       <div className="createTrip container">
         <div className="planTrip">
@@ -165,6 +169,7 @@ class CreateTrip extends Component {
         </div>
       </div>
     )
+  }
   }
 }
 
