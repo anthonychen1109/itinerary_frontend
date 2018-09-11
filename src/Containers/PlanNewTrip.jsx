@@ -4,28 +4,40 @@ import TripModal from './TripModal';
 import TripInput from './TripInput';
 import AddTripModal from './AddTripModal';
 
-class PlanTrip extends Component {
+class PlanNewTrip extends Component {
 
   render() {
-    const renderTrips = this.props.destinations.map( (destination, index) =>
-      <TripInput
-        key={index}
-        destination={destination.country}
-        modifyDestination={this.props.modifyDestination}
-        deleteTrip={this.props.deleteTrip}/>
-    )
+
+    const renderTrips = () => {
+      if (this.props.destinations.length > 0){
+        const renderTrips = this.props.destinations.map( (destination, index) =>
+          <TripInput
+            key={index}
+            destination={destination.country}
+            modifyDestination={this.props.modifyDestination}
+            deleteTrip={this.props.deleteTrip}/>
+        )
+      } else {
+        return <div>Add another location</div>
+      }
+    }
     return (
       <div className="planTripAddBtn">
         <div id="form">
           <div className="planTripForm input-field inline">
             <h3 className="planTripHeaders">
-              Plan Your Trip
+              Create Your Trip
             </h3>
-            <input placeholder="Starting Location" size="large" value={this.props.tripStart} name="tripStart" onChange={this.props.updateTripStartEnd}/>
+            <input
+              type="text"
+              placeholder="Starting Location"
+              value={this.props.startingLocation}
+              onChange={this.props.addStartLocation}
+              />
           </div>
           <div className="planTripInputs">
             <h5>Locations: </h5>
-            {renderTrips}
+            {renderTrips()}
           </div>
           <div className="planTripAdd">
             <AddTripModal
@@ -39,7 +51,12 @@ class PlanTrip extends Component {
             <p className="planTripAddP">Add another location</p>
           </div>
           <div>
-            <input placeholder="Ending Location" size="large" value={this.props.tripEnd} name="tripEnd" onChange={this.props.updateTripStartEnd}/>
+            <input
+              type="text"
+              placeholder="Ending Location"
+              value={this.props.endingLocation}
+              onChange={this.props.addEndingLocation}
+              />
           </div>
 
           <div className="planTripSelectButton">
@@ -51,4 +68,4 @@ class PlanTrip extends Component {
   }
 }
 
-export default PlanTrip;
+export default PlanNewTrip;

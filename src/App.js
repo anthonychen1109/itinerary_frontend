@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import NavBar from './Components/NavBar'
 import Home from './Components/Home'
 import CreateTrip from './Containers/CreateTrip';
+import NewTrip from './Containers/NewTrip';
 import './Assets/css/styles.css';
 import Login from './Components/Login'
 import Register from './Components/Register'
 import {Route} from 'react-router-dom'
 import Profile from './Components/Profile'
+
 class App extends Component {
 
   state = {
@@ -50,10 +52,6 @@ class App extends Component {
 
 
 
-
-
-
-
   render() {
     const loggedIn = !!this.state.auth.currentUser.id
     return (
@@ -62,6 +60,7 @@ class App extends Component {
         <Route exact path='/profile' render={() => <Profile loggedIn={loggedIn} />} />
         <Route exact path='/' component={Home} />
         <Route exact path='/map' render={() => <CreateTrip loggedIn={loggedIn} />} />
+        <Route exact path='/newTrip' render={() => <NewTrip loggedIn={loggedIn} />} />
         <Route exact path='/login' render={() => <Login
           loggedIn={loggedIn}
          handleLoginUser={this.handleLoginUser}/>} />
