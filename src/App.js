@@ -2,55 +2,74 @@ import React, { Component } from 'react';
 import NavBar from './Components/NavBar'
 import Home from './Components/Home'
 import CreateTrip from './Containers/CreateTrip';
+import NewTrip from './Containers/NewTrip';
 import './Assets/css/styles.css';
 import Login from './Components/Login'
 import Register from './Components/Register'
-import {Route, Switch} from 'react-router-dom'
+import {Route} from 'react-router-dom'
+import Profile from './Components/Profile'
 
 class App extends Component {
 
   state = {
-    username: '',
-    password: ''
+    auth: {
+      authenticating: true,
+      currentUser: {}
+    }
   }
 
+  handleLoginUser = (user) => {
+    const newAuth = {
+        ...this.state.auth,
+        authenticating: false,
+        currentUser: user
+      }
+      this.setState({
+        auth: newAuth
+      })
+    }
 
-
-  handleUsername = (e) => {
-    this.setState({
-      username: e.target.value
-    })
-  }
-
-  handlePassword = (e) => {
-    this.setState({
-      password: e.target.value
-    })
-  }
-
-  
+    componentDidMount() {
+      if (localStorage.getItem('token')) {
+         fetch('http://localhost:3000/reauth', {
+          "method": "GET",
+          "headers": {
+            "Content-Type": 'application/json',
+            "Accept": 'application/json',
+            "Authorization": localStorage.getItem('token')
+          }
+        })
+        .then(r => r.json())
+        .then(resp => {
+          this.handleLoginUser(resp)
+        })
+      } else {
+        this.setState( prevState => ({
+          auth: {
+            ...prevState.auth,
+            authenticating: false
+          }
+        }))
+      }
+    }
 
 
 
 
   render() {
-    console.log(this.state.username)
+    console.log(this.state.auth.currentUser)
+    const loggedIn = !!this.state.auth.currentUser.id
     return (
       <div>
         <NavBar />
-
+        <Route exact path='/profile' render={() => <Profile currentUser={this.state.auth.currentUser} loggedIn={loggedIn} />} />
         <Route exact path='/' component={Home} />
-        <Route exact path='/map' component={CreateTrip} />
+        <Route exact path='/map' render={() => <CreateTrip loggedIn={loggedIn} />} />
+        <Route exact path='/newTrip' render={() => <NewTrip loggedIn={loggedIn} />} />
         <Route exact path='/login' render={() => <Login
-          username={this.state.username}
-          password={this.state.password}
-          handleUsername={this.handleUsername}
-          handlePassword={this.handlePassword} />} />
-        <Route exact path='/register' render={() => <Register
-          username={this.state.username}
-          password={this.state.password}
-          handleUsername={this.handleUsername}
-          handlePassword={this.handlePassword}  />} />
+          loggedIn={loggedIn}
+         handleLoginUser={this.handleLoginUser}/>} />
+        <Route exact path='/register' render={() => <Register loggedIn={loggedIn} />} />
       </div>
     );
   }

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PlanTrip from './PlanTrip';
 import WorldMap from './WorldMap';
-
+import { Redirect } from 'react-router-dom'
+import withAuth from '../HOC/withAuth'
 class CreateTrip extends Component {
 
   state = {
@@ -14,11 +15,10 @@ class CreateTrip extends Component {
     destinations: [],
     destination: '',
     tripName: '',
-    tripCity: '',
-    tripState: '',
-    tripCountry: '',
     coordinates: [],
-    currentTrip: ''
+    currentTrip: '',
+    startingLocationObject: '',
+    endingLocationObject: ''
   }
 
   componentDidMount() {
@@ -28,8 +28,38 @@ class CreateTrip extends Component {
 
   getNumTrips = () => {
     return this.state.allTrips.map( trip => {
-      this.setState({ numTrips: trip.locations.length, destinations: trip.locations, currentTrip: trip }, () => this.getCoordinates())
+      this.setState({ numTrips: trip.locations.length, destinations: trip.locations, currentTrip: trip }, () => this.getCoordinatesAndSetStartAndEnd())
     })
+  }
+
+  getCoordinatesAndSetStartAndEnd = () => {
+    this.getCoordinates()
+    this.setStartAndEndDestinations()
+  }
+
+  setStartAndEndDestinations = () => {
+    if (this.state.destinations.length === 1) {
+      this.setState({
+        tripStartingLocation: this.state.destinations[0],
+        startingLocationObject: this.state.destinations[0],
+        endingLocationObject: this.state.destinations[0]
+      })
+    } else if (this.state.destinations.length === 2) {
+      this.setState({
+        tripStartingLocation: this.state.destinations[0],
+        tripEndingLocation: this.state.destinations[1],
+        startingLocationObject: this.state.destinations[0],
+        endingLocationObject: this.state.destinations[this.state.destinations.length-1]
+      })
+    } else if (this.state.destinations.length > 2){
+      this.setState({
+        tripStartingLocation: this.state.destinations[0].country,
+        tripEndingLocation: this.state.destinations[this.state.destinations.length-1].country,
+        startingLocationObject: this.state.destinations[0],
+        endingLocationObject: this.state.destinations[this.state.destinations.length-1],
+        destinations: this.state.destinations.slice(1,-1)
+      })
+    }
   }
 
   getCoordinates = () => {
@@ -112,8 +142,6 @@ class CreateTrip extends Component {
   }
 
   setDestinations = (location) => {
-    console.log('test');
-    console.log(location);
     this.setState({
       destinations: [...this.state.destinations, location ],
       destination: location,
@@ -150,25 +178,26 @@ class CreateTrip extends Component {
             updateTripStartEnd={this.updateTripStartEnd}
             additionalTripLocations={this.state.additionalTripLocations}
             tripName={this.state.tripName}
-            tripCity={this.state.tripCity}
-            tripState={this.state.tripState}
-            tripCountry={this.state.tripCountry}
             handleAddTrip={this.handleAddTrip}
             onAddTrip={this.onAddTrip}
             deleteTrip={this.deleteTrip}
             modifyDestination={this.modifyDestination}
             deleteCoordinates={this.deleteCoordinates}
             findTrip={this.findTrip}
-
             />
 
         </div>
         <div className="worldMap">
-          <WorldMap coordinates={this.state.coordinates}/>
+          <WorldMap
+            coordinates={this.state.coordinates}
+            startingLocationObject={this.state.startingLocationObject}
+            endingLocationObject={this.state.endingLocationObject}
+            destinations={this.state.destinations}
+            />
         </div>
       </div>
     )
   }
 }
 
-export default CreateTrip;
+export default withAuth(CreateTrip)
