@@ -15,12 +15,14 @@ class NewTrip extends Component {
     currentTrip: ''
   }
 
+  // Sets state for starting location for controlled component
   addStartLocation = (e) => {
     this.setState({
       startingLocation: e.target.value
     })
   }
 
+  // Sets state for ending location for controlled component
   addEndingLocation = (e) => {
     this.setState({
       endingLocation: e.target.value
@@ -55,7 +57,7 @@ class NewTrip extends Component {
   }
 
 
-  findTrip = (e) => {
+  createTrip = (e) => {
     e.preventDefault()
     fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${this.state.tripName}&key=AIzaSyBoAZrNZdcLmM-Ei7YtwELfS20Hb3bG_N4`)
     .then( res => res.json() )
@@ -97,6 +99,10 @@ class NewTrip extends Component {
         <div className="planTrip">
           <PlanNewTrip
             destinations={this.state.destinations}
+            startingLocation={this.state.startingLocation}
+            endingLocation={this.state.endingLocation}
+            addStartLocation={this.addStartLocation}
+            addEndingLocation={this.addEndingLocation}
             />
         </div>
         <div className="worldMap">
