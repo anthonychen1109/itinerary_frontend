@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom'
-export default class Login extends Component {
+import withAuth from '../HOC/withAuth'
+ class Login extends Component {
 
   state = {
     username: '',
@@ -36,6 +37,8 @@ export default class Login extends Component {
     .then(r => r.json())
     .then(resp => {
       this.props.handleLoginUser(resp)
+      localStorage.setItem('token', resp.jwt)
+
     })
 
   }
@@ -44,7 +47,7 @@ export default class Login extends Component {
 
   render() {
     if (this.props.loggedIn) {
-      return <Redirect to='/map' />
+      return <Redirect to="/profile" />
     } else {
     return (
       <div className="loginPage">
@@ -71,3 +74,5 @@ export default class Login extends Component {
   }
   }
 }
+
+export default Login

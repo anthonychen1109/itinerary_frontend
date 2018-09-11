@@ -47,7 +47,7 @@ class App extends Component {
     return (
       <div>
         <NavBar />
-        <Route exact path='/profile' component={Profile} />
+        <Route exact path='/profile' render={() => <Profile loggedIn={loggedIn} />} />
         <Route exact path='/' component={Home} />
         <Route exact path='/map' render={() => <CreateTrip loggedIn={loggedIn} />} />
         <Route exact path='/login' render={() => <Login
