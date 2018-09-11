@@ -15,18 +15,42 @@ class NewTrip extends Component {
     currentTrip: ''
   }
 
-  // Sets state for starting location for controlled component
   addStartLocation = (e) => {
     this.setState({
       startingLocation: e.target.value
     })
   }
 
-  // Sets state for ending location for controlled component
+  fetchStartLocation = (location) => {
+    fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=AIzaSyBoAZrNZdcLmM-Ei7YtwELfS20Hb3bG_N4`)
+      .then( res => res.json() )
+      .then( data => {
+      const destinationsList = [...this.state.destinations, data.results[0].formatted_address.toString()]
+      const coordinatesList = [...this.state.coordinates, [parseFloat(data.results[0].geometry.location.lat), parseFloat(data.results[0].geometry.location.lng)]]
+      this.setState({
+        destinations: destinationsList,
+        coordinates: coordinatesList
+      })
+      })
+  }
+
   addEndingLocation = (e) => {
     this.setState({
       endingLocation: e.target.value
     })
+  }
+
+  fetchEndLocation = (location) => {
+    fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=AIzaSyBoAZrNZdcLmM-Ei7YtwELfS20Hb3bG_N4`)
+      .then( res => res.json() )
+      .then( data => {
+      const destinationsList = [...this.state.destinations, data.results[0].formatted_address.toString()]
+      const coordinatesList = [...this.state.coordinates, [parseFloat(data.results[0].geometry.location.lat), parseFloat(data.results[0].geometry.location.lng)]]
+      this.setState({
+        destinations: destinationsList,
+        coordinates: coordinatesList
+      })
+      })
   }
 
   addLocations = (newLocation) => {
@@ -56,8 +80,12 @@ class NewTrip extends Component {
     this.setState({ [e.target.name]: e.target.value})
   }
 
+  modifyDestination = (e) => {
+    e.preventDefault()
+    this.setState({ destination: e.target.value }, () => console.log(this.state.destination))
+  }
 
-  createTrip = (e) => {
+  findTrip = (e) => {
     e.preventDefault()
     fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${this.state.tripName}&key=AIzaSyBoAZrNZdcLmM-Ei7YtwELfS20Hb3bG_N4`)
     .then( res => res.json() )
@@ -93,7 +121,21 @@ class NewTrip extends Component {
   }
 
 
+  deleteTrip = (destination, e) => {
+    e.preventDefault()
+    console.log(destination);
+    console.log(this.state.destinations.toString());
+    const removeDestination = destination
+    const newDestinations = this.state.destinations.filter( destination => destination !== removeDestination)
+    this.setState({ destinations: newDestinations }, this.deleteCoordinates)
+  }
+
+  deleteCoordinates = () => {
+    console.log('delete coordinates');
+  }
+
   render() {
+    console.log(this.state.coordinates);
     return (
       <div className="createTrip container">
         <div className="planTrip">
@@ -103,13 +145,20 @@ class NewTrip extends Component {
             endingLocation={this.state.endingLocation}
             addStartLocation={this.addStartLocation}
             addEndingLocation={this.addEndingLocation}
+            tripName={this.state.tripName}
+            onAddTrip={this.onAddTrip}
+            handleAddTrip={this.handleAddTrip}
+            findTrip={this.findTrip}
+            coordinates={this.state.coordinates}
+            modifyDestination={this.modifyDestination}
+            deleteTrip={this.deleteTrip}
             />
         </div>
         <div className="worldMap">
           <WorldMap
             coordinates={this.state.coordinates}
-            startingLocationObject={this.state.startingLocationObject}
-            endingLocationObject={this.state.endingLocationObject}
+            startingLocation={this.state.startingLocation}
+            endingLocation={this.state.endingLocation}
             destinations={this.state.destinations}
             />
         </div>

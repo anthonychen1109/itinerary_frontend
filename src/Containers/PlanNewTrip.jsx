@@ -10,10 +10,10 @@ class PlanNewTrip extends Component {
     // Render all trips
     const renderTrips = () => {
       // If there is only 1 destination other than start and end
-      if (this.props.destinations === 1) {
+      if (this.props.destinations.length === 1) {
         return <TripInput destination={this.props.destinations[0]} modifyDestination={this.props.modifyDestination} deleteTrip={this.props.deleteTrip} />
       } // If there is more than 1 destination other than start and end
-      else if(this.props.destinations > 1) {
+      else if(this.props.destinations.length > 1) {
         return this.props.destinations.map( (destination, index ) =>
         <TripInput
           key={index}
