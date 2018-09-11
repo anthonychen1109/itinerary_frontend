@@ -16,7 +16,7 @@ class CreateTrip extends Component {
     tripName: '',
     tripCity: '',
     tripState: '',
-    tripCountry: 'France',
+    tripCountry: '',
     coordinates: [],
     currentTrip: ''
   }
@@ -33,14 +33,19 @@ class CreateTrip extends Component {
   }
 
   getCoordinates = () => {
-    console.log('test');
-    // console.log(this.state.destinations)
     let arr = this.state.destinations.map( destination => {
       return destination
-
     })
     this.setState({
       destinations: arr
+    }, this.markerCoordinates)
+  }
+
+  markerCoordinates = () => {
+    this.state.destinations.forEach( destination => {
+      this.setState(prevState => ({
+        coordinates: [...prevState.coordinates, [destination.lat, destination.lng]]
+      }))
     })
   }
 
@@ -79,7 +84,7 @@ class CreateTrip extends Component {
 
   deleteCoordinates = () => {
     this.setState({ coordinates: [] })
-  return this.state.destinations.map( destination => {
+    return this.state.destinations.map( destination => {
     return this.setState(prevState => ({
         coordinates: [...prevState.coordinates, [destination.lat, destination.lng]]
       }))
@@ -97,13 +102,18 @@ class CreateTrip extends Component {
       .then(res => res.json())
       .then(locations => {
         return locations.find(location => {
-          return location.country === this.state.tripCountry ? this.setDestinations(location) : null
+          return location.country === this.state.tripCountry ? this.setDestinations(location) : this.createNewDestination()
         })
       })
+  }
 
+  createNewDestination = () => {
+    console.log("Create")
   }
 
   setDestinations = (location) => {
+    console.log('test');
+    console.log(location);
     this.setState({
       destinations: [...this.state.destinations, location ],
       destination: location,
@@ -130,8 +140,6 @@ class CreateTrip extends Component {
 
 
   render() {
-    // console.log(this.state.coordinates);
-    // console.log(this.state.currentTrip)
     return (
       <div className="createTrip container">
         <div className="planTrip">
