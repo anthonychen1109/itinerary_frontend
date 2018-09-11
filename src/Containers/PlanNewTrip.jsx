@@ -7,21 +7,26 @@ import AddTripModal from './AddTripModal';
 class PlanNewTrip extends Component {
 
   render() {
-    console.log(this.props.destinations);
-    console.log(this.props.coordinates);
+    // Render all trips
     const renderTrips = () => {
-      if (this.props.destinations.length > 0){
-        const renderTrips = this.props.destinations.map( (destination, index) =>
-          <TripInput
-            key={index}
-            destination={destination}
-            modifyDestination={this.props.modifyDestination}
-            deleteTrip={this.props.deleteTrip}/>
+      // If there is only 1 destination other than start and end
+      if (this.props.destinations.length === 1) {
+        return <TripInput destination={this.props.destinations[0]} modifyDestination={this.props.modifyDestination} deleteTrip={this.props.deleteTrip} />
+      } // If there is more than 1 destination other than start and end
+      else if(this.props.destinations.length > 1) {
+        return this.props.destinations.map( (destination, index ) =>
+        <TripInput
+          key={index}
+          destination={destination}
+          modifyDestination={this.props.modifyDestination}
+          deleteTrip={this.props.deleteTrip}/>
         )
-      } else {
+      } // if there are no destinations
+      else {
         return <div>Add another location</div>
       }
     }
+
     return (
       <div className="planTripAddBtn">
         <div id="form">
@@ -45,9 +50,6 @@ class PlanNewTrip extends Component {
               onAddTrip={this.props.onAddTrip}
               handleAddTrip={this.props.handleAddTrip}
               tripName={this.props.tripName}
-              tripCity={this.props.tripCity}
-              tripState={this.props.tripState}
-              tripCountry={this.props.tripCountry}
               findTrip={this.props.findTrip}/>
             <p className="planTripAddP">Add another location</p>
           </div>
