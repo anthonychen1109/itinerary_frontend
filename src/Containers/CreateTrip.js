@@ -33,8 +33,6 @@ class CreateTrip extends Component {
   }
 
   getCoordinates = () => {
-    console.log('test');
-    // console.log(this.state.destinations)
     let arr = this.state.destinations.map( destination => {
       return destination
     })
@@ -124,7 +122,6 @@ class CreateTrip extends Component {
   persistDestination = (location) => {
 
     const newLocation = {trip_id: this.state.currentTrip.id, location_id: location.id}
-    console.log(newLocation)
     return fetch(`http://localhost:3000/trip_locations`, {
       method: 'POST',
       headers: {
@@ -139,8 +136,6 @@ class CreateTrip extends Component {
 
 
   render() {
-    // console.log(this.state.coordinates);
-    // console.log(this.state.currentTrip)
     return (
       <div className="createTrip container">
         <div className="planTrip">

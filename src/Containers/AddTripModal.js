@@ -53,7 +53,7 @@ class AddTripModal extends Component {
             <input type="text" placeholder={"Please Enter Location Country"} name="tripCountry" value={'France'} onChange={this.props.onAddTrip}/>
           </div>
           <div className="addTripModalActionButtons">
-            <input type="submit" className="btn btn-success" />
+            <button className="btn btn-success">Add</button>
             <button onClick={this.closeModal} className="modalCloseBtn btn btn-success">Done</button>
           </div>
           </form>
