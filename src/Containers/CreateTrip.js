@@ -44,7 +44,7 @@ class CreateTrip extends Component {
   }
 
   markerCoordinates = () => {
-    this.state.destinations.map( destination => {
+    this.state.destinations.forEach( destination => {
       this.setState(prevState => ({
         coordinates: [...prevState.coordinates, [destination.lat, destination.lng]]
       }))
