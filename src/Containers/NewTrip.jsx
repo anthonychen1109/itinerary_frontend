@@ -57,7 +57,7 @@ class NewTrip extends Component {
           destinations: [...prevState.destinations, destination],
           coordinates: [...prevState.coordinates, coordinatesList]
         }
-      }, () => console.log(this.state))
+      }, this.createNewTrip)
     })
   }
 
@@ -139,11 +139,6 @@ class NewTrip extends Component {
       .then(console.log)
   }
 
-  handleDates = (e) => {
-    console.log(e)
-  }
-
-
   deleteTrip = (destination, e) => {
     e.preventDefault()
     console.log(destination);
@@ -153,12 +148,48 @@ class NewTrip extends Component {
     this.setState({ destinations: newDestinations }, this.deleteCoordinates)
   }
 
+
+  //CREATE TRIP and PERSIST LOCATIONS
+  createNewTrip = () => {
+    const currentUser = this.props.currentUser
+    const newTrip = {
+      title: 'My New Trip!',
+      start_date: this.state.startDate,
+      end_date: this.state.endDate,
+      user_id: currentUser.id
+    }
+    fetch(`http://localhost:3000/trips`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        "Accept": 'application/json',
+        "Authorization": localStorage.getItem('token')
+      },
+      body: JSON.stringify(newTrip)
+    })
+      .then(res => res.json())
+      .then(console.log)
+  }
+
+  // createNewLocations = () => {
+  //   fetch(`http://localhost:3000/trip_locations`, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify(newTrip)
+  //   })
+  //     .then(res => res.json())
+  // }
+
+  // END CREATION
+
   deleteCoordinates = () => {
     console.log('delete coordinates');
   }
 
   render() {
-    console.log(this.state.coordinates);
+    console.log(this.props.currentUser);
     return (
       <div className="createTrip container">
         <div className="planTrip">

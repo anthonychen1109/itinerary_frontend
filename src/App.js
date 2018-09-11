@@ -64,7 +64,7 @@ class App extends Component {
         <Route exact path='/profile' render={() => <Profile currentUser={this.state.auth.currentUser} loggedIn={loggedIn} />} />
         <Route exact path='/' component={Home} />
         <Route exact path='/map' render={() => <CreateTrip loggedIn={loggedIn} />} />
-        <Route exact path='/newTrip' render={() => <NewTrip loggedIn={loggedIn} />} />
+        <Route exact path='/newTrip' render={() => <NewTrip loggedIn={loggedIn} currentUser={this.state.auth.currentUser}/>} />
         <Route exact path='/login' render={() => <Login
           loggedIn={loggedIn}
          handleLoginUser={this.handleLoginUser}/>} />
