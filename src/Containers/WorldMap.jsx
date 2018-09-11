@@ -46,7 +46,7 @@ class WorldMap extends React.Component {
          onClick={() => this.openMarker(this.props.endingLocationObject)}/>
      }
 
-     {this.props.destinations.map((destination, index) => {
+     {this.props.destinations.length > 0 && this.props.destinations.map((destination, index) => {
        return <Marker
          key={index}
          position={{ lat: destination.lat, lng: destination.lng }}
