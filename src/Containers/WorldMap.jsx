@@ -8,6 +8,7 @@ class WorldMap extends React.Component {
   }
 
   render() {
+    console.log(this.props.coordinates);
     const GoogleMapLocation = withGoogleMap(props => (
      <GoogleMap
        defaultCenter = { { lat: 40.701074, lng: -73.987064 } }

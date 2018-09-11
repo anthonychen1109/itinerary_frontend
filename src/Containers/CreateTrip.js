@@ -37,10 +37,17 @@ class CreateTrip extends Component {
     // console.log(this.state.destinations)
     let arr = this.state.destinations.map( destination => {
       return destination
-
     })
     this.setState({
       destinations: arr
+    }, this.markerCoordinates)
+  }
+
+  markerCoordinates = () => {
+    this.state.destinations.map( destination => {
+      this.setState(prevState => ({
+        coordinates: [...prevState.coordinates, [destination.lat, destination.lng]]
+      }))
     })
   }
 
@@ -79,7 +86,7 @@ class CreateTrip extends Component {
 
   deleteCoordinates = () => {
     this.setState({ coordinates: [] })
-  return this.state.destinations.map( destination => {
+    return this.state.destinations.map( destination => {
     return this.setState(prevState => ({
         coordinates: [...prevState.coordinates, [destination.lat, destination.lng]]
       }))
@@ -115,7 +122,7 @@ class CreateTrip extends Component {
   }
 
   persistDestination = (location) => {
-    
+
     const newLocation = {trip_id: this.state.currentTrip.id, location_id: location.id}
     console.log(newLocation)
     return fetch(`http://localhost:3000/trip_locations`, {
