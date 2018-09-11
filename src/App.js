@@ -11,6 +11,7 @@ class App extends Component {
 
   state = {
     auth: {
+      authenticating: true,
       currentUser: {}
     }
   }
@@ -18,11 +19,32 @@ class App extends Component {
   handleLoginUser = (user) => {
     const newAuth = {
         ...this.state.auth,
+        authenticating: false,
         currentUser: user
       }
       this.setState({
         auth: newAuth
       })
+    }
+
+    componentDidMount() {
+      if (localStorage.getItem('token')) {
+        return fetch('http://localhost:3000/reauth', {
+          "method": "GET",
+          "headers": {
+            "Content-Type": 'application/json',
+            "Accept": 'application/json',
+            "Authorization": localStorage.getItem('token')
+          }
+        })
+      } else {
+        this.setState( prevState => ({
+          auth: {
+            ...prevState.auth,
+            authenticating: false
+          }
+        }))
+      }
     }
 
 
@@ -43,7 +65,7 @@ class App extends Component {
         <Route exact path='/login' render={() => <Login
           loggedIn={loggedIn}
          handleLoginUser={this.handleLoginUser}/>} />
-        <Route exact path='/register' render={() => <Register />} />
+        <Route exact path='/register' render={() => <Register loggedIn={loggedIn} />} />
       </div>
     );
   }

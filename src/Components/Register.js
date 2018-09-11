@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { Redirect } from 'react-router-dom'
 export default class Register extends Component {
 
   state = {
@@ -51,6 +51,9 @@ export default class Register extends Component {
 
 
   render() {
+    if (this.props.loggedIn) {
+      return <Redirect to='/profile' />
+    } else {
     return (
       <div className="registerPage">
         <form onSubmit={this.handleSubmit}  className="registerForm col s12 form">
@@ -84,5 +87,6 @@ export default class Register extends Component {
         </form>
       </div>
     )
+  }
   }
 }

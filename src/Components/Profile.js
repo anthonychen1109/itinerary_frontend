@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import withAuth from '../HOC/withAuth'
+import { Link } from 'react-router-dom'
 
 class Profile extends Component {
   render() {
@@ -18,6 +19,7 @@ class Profile extends Component {
             </div>
           </div>
         </div>
+        <Link className="waves-effect waves-red btn-flat" to='/map'>Create A Trip</Link>
       </div>
     )
   }
