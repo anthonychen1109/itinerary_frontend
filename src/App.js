@@ -53,6 +53,18 @@ class App extends Component {
       }
     }
 
+    handleLogout = () => {
+    this.setState((prevState) => {
+       return {
+         auth: {
+           ...prevState.auth,
+           currentUser: {}
+         }
+       }
+    })
+    localStorage.clear()
+  }
+
 
 
 
@@ -61,7 +73,7 @@ class App extends Component {
     const loggedIn = !!this.state.auth.currentUser.id
     return (
       <div>
-        <NavBar />
+        <NavBar handleLogout={this.handleLogout} loggedIn={loggedIn} />
         <Route exact path='/profile' render={() => <Profile currentUser={this.state.auth.currentUser} loggedIn={loggedIn} />} />
         <Route exact path='/' component={Home} />
         <Route exact path='/map' render={() => <CreateTrip loggedIn={loggedIn} />} />
