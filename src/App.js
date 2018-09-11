@@ -57,7 +57,6 @@ class App extends Component {
 
 
   render() {
-    console.log(this.state.auth.currentUser)
     const loggedIn = !!this.state.auth.currentUser.id
     return (
       <div>
