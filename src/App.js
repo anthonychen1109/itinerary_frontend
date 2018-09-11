@@ -6,7 +6,7 @@ import NewTrip from './Containers/NewTrip';
 import './Assets/css/styles.css';
 import Login from './Components/Login'
 import Register from './Components/Register'
-import {Route} from 'react-router-dom'
+import {Route, Redirect} from 'react-router-dom'
 import Profile from './Components/Profile'
 
 class App extends Component {
@@ -63,6 +63,7 @@ class App extends Component {
        }
     })
     localStorage.clear()
+    return <Redirect to='/home' />
   }
 
 

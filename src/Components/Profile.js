@@ -33,11 +33,11 @@ class Profile extends Component {
         <div className="card-panel grey lighten-5 z-depth-1">
           <div className="row valign-wrapper">
             <div className="col s2">
-              <img src={this.state.avatar_url} alt="icon" className="circle responsive-img"/>
+              <img src={this.state.avatar} alt="icon" className="circle responsive-img"/>
             </div>
             <div className="col s10">
               <span className="black-text">
-                Welcome {this.state.user} to your travel journal!
+                Welcome {this.state.user}, to your travel archive!
               </span>
             </div>
           </div>
