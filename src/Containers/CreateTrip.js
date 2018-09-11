@@ -115,9 +115,7 @@ class CreateTrip extends Component {
   }
 
   persistDestination = (location) => {
-    
     const newLocation = {trip_id: this.state.currentTrip.id, location_id: location.id}
-    console.log(newLocation)
     return fetch(`http://localhost:3000/trip_locations`, {
       method: 'POST',
       headers: {
