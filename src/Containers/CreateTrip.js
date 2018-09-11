@@ -19,7 +19,9 @@ class CreateTrip extends Component {
     tripState: '',
     tripCountry: '',
     coordinates: [],
-    currentTrip: ''
+    currentTrip: '',
+    startingLocationObject: '',
+    endingLocationObject: ''
   }
 
   componentDidMount() {
@@ -29,8 +31,38 @@ class CreateTrip extends Component {
 
   getNumTrips = () => {
     return this.state.allTrips.map( trip => {
-      this.setState({ numTrips: trip.locations.length, destinations: trip.locations, currentTrip: trip }, () => this.getCoordinates())
+      this.setState({ numTrips: trip.locations.length, destinations: trip.locations, currentTrip: trip }, () => this.getCoordinatesAndSetStartAndEnd())
     })
+  }
+
+  getCoordinatesAndSetStartAndEnd = () => {
+    this.getCoordinates()
+    this.setStartAndEndDestinations()
+  }
+
+  setStartAndEndDestinations = () => {
+    if (this.state.destinations.length === 1) {
+      this.setState({
+        tripStartingLocation: this.state.destinations[0],
+        startingLocationObject: this.state.destinations[0],
+        endingLocationObject: this.state.destinations[0]
+      })
+    } else if (this.state.destinations.length === 2) {
+      this.setState({
+        tripStartingLocation: this.state.destinations[0],
+        tripEndingLocation: this.state.destinations[1],
+        startingLocationObject: this.state.destinations[0],
+        endingLocationObject: this.state.destinations[this.state.destinations.length-1]
+      })
+    } else if (this.state.destinations.length > 2){
+      this.setState({
+        tripStartingLocation: this.state.destinations[0].country,
+        tripEndingLocation: this.state.destinations[this.state.destinations.length-1].country,
+        startingLocationObject: this.state.destinations[0],
+        endingLocationObject: this.state.destinations[this.state.destinations.length-1],
+        destinations: this.state.destinations.slice(1,-1)
+      })
+    }
   }
 
   getCoordinates = () => {
@@ -109,8 +141,6 @@ class CreateTrip extends Component {
   }
 
   setDestinations = (location) => {
-    console.log('test');
-    console.log(location);
     this.setState({
       destinations: [...this.state.destinations, location ],
       destination: location,
@@ -160,12 +190,16 @@ class CreateTrip extends Component {
             modifyDestination={this.modifyDestination}
             deleteCoordinates={this.deleteCoordinates}
             findTrip={this.findTrip}
-
             />
 
         </div>
         <div className="worldMap">
-          <WorldMap coordinates={this.state.coordinates}/>
+          <WorldMap
+            coordinates={this.state.coordinates}
+            startingLocationObject={this.state.startingLocationObject}
+            endingLocationObject={this.state.endingLocationObject}
+            destinations={this.state.destinations}
+            />
         </div>
       </div>
     )
