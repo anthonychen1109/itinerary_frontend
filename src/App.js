@@ -5,6 +5,7 @@ import CreateTrip from './Containers/CreateTrip';
 import './Assets/css/styles.css';
 import Login from './Components/Login'
 import Register from './Components/Register'
+import Events from './Containers/Events'
 import {Route, Switch} from 'react-router-dom'
 
 class App extends Component {
@@ -28,7 +29,7 @@ class App extends Component {
     })
   }
 
-  
+
 
 
 
@@ -51,6 +52,7 @@ class App extends Component {
           password={this.state.password}
           handleUsername={this.handleUsername}
           handlePassword={this.handlePassword}  />} />
+        <Route exact path='/events' component={Events} />
       </div>
     );
   }

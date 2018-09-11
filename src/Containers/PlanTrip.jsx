@@ -21,7 +21,7 @@ class PlanTrip extends Component {
             <h3 className="planTripHeaders">
               Plan Your Trip
             </h3>
-            <input placeholder="Starting Location" size="large" value={this.props.tripStartingLocation} name="tripStart" onChange={this.props.updateTripStartEnd}/>
+            <input placeholder="Starting Location" size="large" value={this.props.tripStart} name="tripStart" onChange={this.props.updateTripStartEnd}/>
           </div>
           <div className="planTripInputs">
             <h5>Locations: </h5>
@@ -39,7 +39,7 @@ class PlanTrip extends Component {
             <p className="planTripAddP">Add another location</p>
           </div>
           <div>
-            <input placeholder="Ending Location" size="large" value={this.props.tripEndingLocation} name="tripEnd" onChange={this.props.updateTripStartEnd}/>
+            <input placeholder="Ending Location" size="large" value={this.props.tripEnd} name="tripEnd" onChange={this.props.updateTripStartEnd}/>
           </div>
 
           <div className="planTripSelectButton">
