@@ -15,9 +15,6 @@ class CreateTrip extends Component {
     destinations: [],
     destination: '',
     tripName: '',
-    tripCity: '',
-    tripState: '',
-    tripCountry: '',
     coordinates: [],
     currentTrip: '',
     startingLocationObject: '',
@@ -178,9 +175,6 @@ class CreateTrip extends Component {
             updateTripStartEnd={this.updateTripStartEnd}
             additionalTripLocations={this.state.additionalTripLocations}
             tripName={this.state.tripName}
-            tripCity={this.state.tripCity}
-            tripState={this.state.tripState}
-            tripCountry={this.state.tripCountry}
             handleAddTrip={this.handleAddTrip}
             onAddTrip={this.onAddTrip}
             deleteTrip={this.deleteTrip}

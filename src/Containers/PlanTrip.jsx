@@ -10,7 +10,7 @@ class PlanTrip extends Component {
     const renderTrips = this.props.destinations.map( (destination, index) =>
       <TripInput
         key={index}
-        destination={destination.country}
+        destination={destination}
         modifyDestination={this.props.modifyDestination}
         deleteTrip={this.props.deleteTrip}/>
     )
@@ -32,9 +32,6 @@ class PlanTrip extends Component {
               onAddTrip={this.props.onAddTrip}
               handleAddTrip={this.props.handleAddTrip}
               tripName={this.props.tripName}
-              tripCity={this.props.tripCity}
-              tripState={this.props.tripState}
-              tripCountry={this.props.tripCountry}
               findTrip={this.props.findTrip}/>
             <p className="planTripAddP">Add another location</p>
           </div>

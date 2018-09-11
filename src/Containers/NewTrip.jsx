@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PlanTrip from './PlanTrip';
 import WorldMap from './WorldMap';
 import { Redirect } from 'react-router-dom'
 import withAuth from '../HOC/withAuth'
@@ -12,9 +11,8 @@ class NewTrip extends Component {
     startingLocation: '',
     endingLocation: '',
     tripName: '',
-    tripCity: '',
-    tripState: '',
-    tripCountry: ''
+    coordinates: '',
+    currentTrip: ''
   }
 
   addStartLocation = (e) => {
@@ -42,10 +40,7 @@ class NewTrip extends Component {
     const newLocation = this.state.tripName
     this.setState({
       destinations: [...this.state.destinations, newLocation],
-      tripName: '',
-      tripCity: '',
-      tripState: '',
-      tripCountry: ''
+      tripName: ''
     })
     console.log("added trip testing");
   }
@@ -62,23 +57,23 @@ class NewTrip extends Component {
 
   findTrip = (e) => {
     e.preventDefault()
-    return fetch(`http://localhost:3000/locations`)
-      .then(res => res.json())
-      .then(locations => {
-        return locations.find(location => {
-          return location.country === this.state.tripCountry ? this.setDestinations(location) : null
-        })
+    fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${this.state.tripName}&key=AIzaSyBoAZrNZdcLmM-Ei7YtwELfS20Hb3bG_N4`)
+    .then( res => res.json() )
+    .then(data => {
+      const destinationsList = [...this.state.destinations, data.results[0].formatted_address.toString()]
+      const coordinatesList = [...this.state.coordinates, [parseFloat(data.results[0].geometry.location.lat), parseFloat(data.results[0].geometry.location.lng)]]
+      this.setState({
+        destination: destinationsList,
+        coordinates: coordinatesList
       })
+    })
   }
 
   setDestinations = (location) => {
     this.setState({
       destinations: [...this.state.destinations, location ],
       destination: location,
-      tripName: location.name,
-      tripCity: location.city,
-      tripState: location.state,
-      tripCountry: location.country
+      tripName: location.name
     }, () => this.persistDestination(location))
   }
 
@@ -97,6 +92,7 @@ class NewTrip extends Component {
 
 
   render() {
+    console.log(this.state.coordinates);
     return (
       <div className="createTrip container">
         <div className="planTrip">
@@ -107,9 +103,6 @@ class NewTrip extends Component {
             addStartLocation={this.addStartLocation}
             addEndingLocation={this.addEndingLocation}
             tripName={this.state.tripName}
-            tripCity={this.state.tripCity}
-            tripState={this.state.tripState}
-            tripCountry={this.state.tripCountry}
             onAddTrip={this.onAddTrip}
             handleAddTrip={this.handleAddTrip}
             findTrip={this.findTrip}
@@ -117,6 +110,9 @@ class NewTrip extends Component {
         </div>
         <div className="worldMap">
           <WorldMap
+            coordinates={this.state.coordinates}
+            startingLocationObject={this.state.startingLocationObject}
+            endingLocationObject={this.state.endingLocationObject}
             destinations={this.state.destinations}
             />
         </div>
