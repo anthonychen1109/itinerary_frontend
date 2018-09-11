@@ -31,13 +31,17 @@ class App extends Component {
 
     componentDidMount() {
       if (localStorage.getItem('token')) {
-        return fetch('http://localhost:3000/reauth', {
+         fetch('http://localhost:3000/reauth', {
           "method": "GET",
           "headers": {
             "Content-Type": 'application/json',
             "Accept": 'application/json',
             "Authorization": localStorage.getItem('token')
           }
+        })
+        .then(r => r.json())
+        .then(resp => {
+          this.handleLoginUser(resp)
         })
       } else {
         this.setState( prevState => ({
@@ -53,11 +57,12 @@ class App extends Component {
 
 
   render() {
+    console.log(this.state.auth.currentUser)
     const loggedIn = !!this.state.auth.currentUser.id
     return (
       <div>
         <NavBar />
-        <Route exact path='/profile' render={() => <Profile loggedIn={loggedIn} />} />
+        <Route exact path='/profile' render={() => <Profile currentUser={this.state.auth.currentUser} loggedIn={loggedIn} />} />
         <Route exact path='/' component={Home} />
         <Route exact path='/map' render={() => <CreateTrip loggedIn={loggedIn} />} />
         <Route exact path='/newTrip' render={() => <NewTrip loggedIn={loggedIn} />} />
