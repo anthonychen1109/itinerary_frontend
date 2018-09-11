@@ -11,10 +11,12 @@ class NewTrip extends Component {
     startingLocation: '',
     endingLocation: '',
     tripName: '',
-    coordinates: '',
+    coordinates: [],
     currentTrip: '',
     startDate: '',
-    endDate: ''
+    endDate: '',
+    allTrips: [],
+    currentTrip: {}
   }
 
   addStartLocation = (e) => {
@@ -23,17 +25,19 @@ class NewTrip extends Component {
     })
   }
 
-  fetchStartLocation = (location) => {
-    fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=AIzaSyBoAZrNZdcLmM-Ei7YtwELfS20Hb3bG_N4`)
+  fetchStartLocation = () => {
+    fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${this.state.startingLocation}&key=AIzaSyBoAZrNZdcLmM-Ei7YtwELfS20Hb3bG_N4`)
       .then( res => res.json() )
       .then( data => {
-      const destinationsList = [...this.state.destinations, data.results[0].formatted_address.toString()]
-      const coordinatesList = [...this.state.coordinates, [parseFloat(data.results[0].geometry.location.lat), parseFloat(data.results[0].geometry.location.lng)]]
-      this.setState({
-        destinations: destinationsList,
-        coordinates: coordinatesList
-      })
-      })
+      this.setState(prevState => {
+        const destination = data.results[0].formatted_address.toString()
+        const coordinatesList = [parseFloat(data.results[0].geometry.location.lat), parseFloat(data.results[0].geometry.location.lng)]
+        return {
+          destinations: [...prevState.destinations, destination],
+          coordinates: [...prevState.coordinates, coordinatesList]
+        }
+      }, () => this.fetchEndLocation())
+    })
   }
 
   addEndingLocation = (e) => {
@@ -42,17 +46,19 @@ class NewTrip extends Component {
     })
   }
 
-  fetchEndLocation = (location) => {
-    fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=AIzaSyBoAZrNZdcLmM-Ei7YtwELfS20Hb3bG_N4`)
+  fetchEndLocation = () => {
+    fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${this.state.endingLocation}&key=AIzaSyBoAZrNZdcLmM-Ei7YtwELfS20Hb3bG_N4`)
       .then( res => res.json() )
       .then( data => {
-      const destinationsList = [...this.state.destinations, data.results[0].formatted_address.toString()]
-      const coordinatesList = [...this.state.coordinates, [parseFloat(data.results[0].geometry.location.lat), parseFloat(data.results[0].geometry.location.lng)]]
-      this.setState({
-        destinations: destinationsList,
-        coordinates: coordinatesList
-      })
-      })
+      this.setState(prevState => {
+        const destination = data.results[0].formatted_address.toString()
+        const coordinatesList = [parseFloat(data.results[0].geometry.location.lat), parseFloat(data.results[0].geometry.location.lng)]
+        return {
+          destinations: [...prevState.destinations, destination],
+          coordinates: [...prevState.coordinates, coordinatesList]
+        }
+      }, () => console.log(this.state))
+    })
   }
 
   addLocations = (newLocation) => {
@@ -89,7 +95,7 @@ class NewTrip extends Component {
     this.setState({
       startDate: parseDates[0],
       endDate: parseDates[1]
-    }, () => console.log(this.state.startDate, this.state.endDate))
+    }, this.fetchStartLocation)
   }
 
   modifyDestination = (e) => {
@@ -99,16 +105,17 @@ class NewTrip extends Component {
 
   findTrip = (e) => {
     e.preventDefault()
-    fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${this.state.tripName}&key=AIzaSyBoAZrNZdcLmM-Ei7YtwELfS20Hb3bG_N4`)
-    .then( res => res.json() )
-    .then(data => {
-      const destinationsList = [...this.state.destinations, data.results[0].formatted_address.toString()]
-      const coordinatesList = [...this.state.coordinates, [parseFloat(data.results[0].geometry.location.lat), parseFloat(data.results[0].geometry.location.lng)]]
-      this.setState({
-        destinations: destinationsList,
-        coordinates: coordinatesList
-      })
-    })
+    console.log('findtrip');
+    // fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${this.state.tripName}&key=AIzaSyBoAZrNZdcLmM-Ei7YtwELfS20Hb3bG_N4`)
+    // .then( res => res.json() )
+    // .then(data => {
+    //   const destinationsList = [...this.state.destinations, data.results[0].formatted_address.toString()]
+    //   const coordinatesList = [...this.state.coordinates, [parseFloat(data.results[0].geometry.location.lat), parseFloat(data.results[0].geometry.location.lng)]]
+    //   this.setState({
+    //     destinations: destinationsList,
+    //     coordinates: coordinatesList
+    //   })
+    // })
   }
 
   setDestinations = (location) => {
