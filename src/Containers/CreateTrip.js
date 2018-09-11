@@ -132,9 +132,13 @@ class CreateTrip extends Component {
       .then(res => res.json())
       .then(locations => {
         return locations.find(location => {
-          return location.country === this.state.tripCountry ? this.setDestinations(location) : null
+          return location.country === this.state.tripCountry ? this.setDestinations(location) : this.createNewDestination()
         })
       })
+  }
+
+  createNewDestination = () => {
+    console.log("Create")
   }
 
   setDestinations = (location) => {
@@ -149,7 +153,6 @@ class CreateTrip extends Component {
   }
 
   persistDestination = (location) => {
-
     const newLocation = {trip_id: this.state.currentTrip.id, location_id: location.id}
     return fetch(`http://localhost:3000/trip_locations`, {
       method: 'POST',
