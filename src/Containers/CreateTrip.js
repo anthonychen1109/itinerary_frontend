@@ -16,7 +16,7 @@ class CreateTrip extends Component {
     tripName: '',
     tripCity: '',
     tripState: '',
-    tripCountry: 'France',
+    tripCountry: '',
     coordinates: [],
     currentTrip: ''
   }
@@ -105,10 +105,11 @@ class CreateTrip extends Component {
           return location.country === this.state.tripCountry ? this.setDestinations(location) : null
         })
       })
-
   }
 
   setDestinations = (location) => {
+    console.log('test');
+    console.log(location);
     this.setState({
       destinations: [...this.state.destinations, location ],
       destination: location,

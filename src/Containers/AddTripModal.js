@@ -46,14 +46,14 @@ class AddTripModal extends Component {
           <h2 className="modalTripHeader">Add Another Destination: </h2>
             <form onSubmit={this.props.findTrip}>
           <div>
-            <input type="text" placeholder={"Please Enter Location Name"} name="tripName" value={'France'} onChange={this.props.onAddTrip}/>
-            <input type="text" placeholder={"Please Enter Location City"} name="tripCity" value={'France'}
+            <input type="text" placeholder={"Please Enter Location Name"} name="tripName" value={this.props.tripName} onChange={this.props.onAddTrip}/>
+            <input type="text" placeholder={"Please Enter Location City"} name="tripCity" value={this.props.tripCity}
               onChange={this.props.onAddTrip}/>
-            <input type="text" placeholder={"Please Enter Location State"} name="tripState" value={'France'} onChange={this.props.onAddTrip}/>
-            <input type="text" placeholder={"Please Enter Location Country"} name="tripCountry" value={'France'} onChange={this.props.onAddTrip}/>
+            <input type="text" placeholder={"Please Enter Location State"} name="tripState" value={this.props.tripState} onChange={this.props.onAddTrip}/>
+            <input type="text" placeholder={"Please Enter Location Country"} name="tripCountry" value={this.props.tripCountry} onChange={this.props.onAddTrip}/>
           </div>
           <div className="addTripModalActionButtons">
-            <button className="btn btn-success">Add</button>
+            <input type="submit" className="btn btn-success" />
             <button onClick={this.closeModal} className="modalCloseBtn btn btn-success">Done</button>
           </div>
           </form>
