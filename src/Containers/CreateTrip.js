@@ -12,7 +12,7 @@ class CreateTrip extends Component {
     numTrips: 0,
     allLocations: {},
     allTrips: [],
-    destinations: [],
+    destinations: ["paris", "tokyo"],
     destination: '',
     tripName: '',
     coordinates: [],

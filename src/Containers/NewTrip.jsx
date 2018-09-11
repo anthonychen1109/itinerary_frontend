@@ -31,7 +31,7 @@ class NewTrip extends Component {
       .then( data => {
       this.setState(prevState => {
         const destination = data.results[0].formatted_address.toString()
-        const coordinatesList = [parseFloat(data.results[0].geometry.location.lat), parseFloat(data.results[0].geometry.location.lng)]
+        const coordinatesList = {lat: parseFloat(data.results[0].geometry.location.lat), lng: parseFloat(data.results[0].geometry.location.lng)}
         return {
           destinations: [...prevState.destinations, destination],
           coordinates: [...prevState.coordinates, coordinatesList]
@@ -52,7 +52,7 @@ class NewTrip extends Component {
       .then( data => {
       this.setState(prevState => {
         const destination = data.results[0].formatted_address.toString()
-        const coordinatesList = [parseFloat(data.results[0].geometry.location.lat), parseFloat(data.results[0].geometry.location.lng)]
+        const coordinatesList = {lat: parseFloat(data.results[0].geometry.location.lat), lng: parseFloat(data.results[0].geometry.location.lng)}
         return {
           destinations: [...prevState.destinations, destination],
           coordinates: [...prevState.coordinates, coordinatesList]
@@ -189,7 +189,11 @@ class NewTrip extends Component {
   }
 
   render() {
+<<<<<<< HEAD
     console.log(this.props.currentUser);
+=======
+    // console.log(this.state.coordinates);
+>>>>>>> 96c5345a9870bd279e322eaf5a69173506068c55
     return (
       <div className="createTrip container">
         <div className="planTrip">
