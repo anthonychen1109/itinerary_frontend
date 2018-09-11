@@ -7,19 +7,25 @@ import AddTripModal from './AddTripModal';
 class PlanNewTrip extends Component {
 
   render() {
-    console.log(this.props.destinations);
-    console.log(this.props.coordinates);
+    // console.log(this.props.destinations);
+    // console.log(this.props.coordinates);
+    // const renderTrips = () => {
+    //   if (this.props.destinations.length > 0){
+    //     const renderTrips = this.props.destinations.map( (destination, index) =>
+    //       <TripInput
+    //         key={index}
+    //         destination={destination}
+    //         modifyDestination={this.props.modifyDestination}
+    //         deleteTrip={this.props.deleteTrip}/>
+    //     )
+    //   } else {
+    //     return <div>Add another location</div>
+    //   }
+    // }
+
     const renderTrips = () => {
-      if (this.props.destinations.length > 0){
-        const renderTrips = this.props.destinations.map( (destination, index) =>
-          <TripInput
-            key={index}
-            destination={destination}
-            modifyDestination={this.props.modifyDestination}
-            deleteTrip={this.props.deleteTrip}/>
-        )
-      } else {
-        return <div>Add another location</div>
+      if (this.props.destinations === 1) {
+        return <TripInput destination={this.props.destinations[0]} modifyDestination={this.props.modifyDestination} deleteTrip={this.props.deleteTrip} />
       }
     }
     return (

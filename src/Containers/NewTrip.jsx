@@ -92,21 +92,11 @@ class NewTrip extends Component {
 
 
   render() {
-    console.log(this.state.coordinates);
     return (
       <div className="createTrip container">
         <div className="planTrip">
           <PlanNewTrip
             destinations={this.state.destinations}
-            startingLocation={this.state.startingLocation}
-            endingLocation={this.state.endingLocation}
-            addStartLocation={this.addStartLocation}
-            addEndingLocation={this.addEndingLocation}
-            tripName={this.state.tripName}
-            onAddTrip={this.onAddTrip}
-            handleAddTrip={this.handleAddTrip}
-            findTrip={this.findTrip}
-            coordinates={this.state.coordinates}
             />
         </div>
         <div className="worldMap">
