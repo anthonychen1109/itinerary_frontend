@@ -32,6 +32,7 @@ class AddTripModal extends Component {
   }
 
   render() {
+    // console.log(this.props.findTrip)
     return (
       <div>
         <button className="btn btn-primary" onClick={this.openModal}>+</button>

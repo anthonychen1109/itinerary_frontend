@@ -18,7 +18,9 @@ class CreateTrip extends Component {
     coordinates: [],
     currentTrip: '',
     startingLocationObject: '',
-    endingLocationObject: ''
+    endingLocationObject: '',
+    startDate: '',
+    endDate: ''
   }
 
   componentDidMount() {
@@ -127,12 +129,14 @@ class CreateTrip extends Component {
 
 
   findTrip = (e) => {
+
     e.preventDefault()
     return fetch(`http://localhost:3000/locations`)
       .then(res => res.json())
       .then(locations => {
         return locations.find(location => {
-          return location.country === this.state.tripCountry ? this.setDestinations(location) : this.createNewDestination()
+          console.log("Fetch", location)
+          return location.city === this.state.tripCity ? this.setDestinations(location) : null
         })
       })
   }
@@ -142,6 +146,7 @@ class CreateTrip extends Component {
   }
 
   setDestinations = (location) => {
+    console.log(location)
     this.setState({
       destinations: [...this.state.destinations, location ],
       destination: location,

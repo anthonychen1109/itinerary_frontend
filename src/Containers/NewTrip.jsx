@@ -101,6 +101,10 @@ class NewTrip extends Component {
       .then(console.log)
   }
 
+  handleDates = (e) => {
+    console.log(e)
+  }
+
 
   render() {
     console.log(this.state.coordinates);
