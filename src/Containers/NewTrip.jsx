@@ -14,7 +14,9 @@ class NewTrip extends Component {
     tripName: '',
     tripCity: '',
     tripState: '',
-    tripCountry: ''
+    tripCountry: '',
+    startDate: '',
+    endDate: ''
   }
 
   addStartLocation = (e) => {
@@ -95,6 +97,10 @@ class NewTrip extends Component {
     })
       .then(res => res.json())
       .then(console.log)
+  }
+
+  handleDates = (e) => {
+    console.log(e)
   }
 
 

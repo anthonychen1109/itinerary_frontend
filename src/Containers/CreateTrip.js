@@ -21,7 +21,9 @@ class CreateTrip extends Component {
     coordinates: [],
     currentTrip: '',
     startingLocationObject: '',
-    endingLocationObject: ''
+    endingLocationObject: '',
+    startDate: '',
+    endDate: ''
   }
 
   componentDidMount() {
