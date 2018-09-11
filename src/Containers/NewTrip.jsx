@@ -31,7 +31,7 @@ class NewTrip extends Component {
       .then( data => {
       this.setState(prevState => {
         const destination = data.results[0].formatted_address.toString()
-        const coordinatesList = [parseFloat(data.results[0].geometry.location.lat), parseFloat(data.results[0].geometry.location.lng)]
+        const coordinatesList = {lat: parseFloat(data.results[0].geometry.location.lat), lng: parseFloat(data.results[0].geometry.location.lng)}
         return {
           destinations: [...prevState.destinations, destination],
           coordinates: [...prevState.coordinates, coordinatesList]
@@ -52,7 +52,7 @@ class NewTrip extends Component {
       .then( data => {
       this.setState(prevState => {
         const destination = data.results[0].formatted_address.toString()
-        const coordinatesList = [parseFloat(data.results[0].geometry.location.lat), parseFloat(data.results[0].geometry.location.lng)]
+        const coordinatesList = {lat: parseFloat(data.results[0].geometry.location.lat), lng: parseFloat(data.results[0].geometry.location.lng)}
         return {
           destinations: [...prevState.destinations, destination],
           coordinates: [...prevState.coordinates, coordinatesList]
@@ -154,7 +154,7 @@ class NewTrip extends Component {
   }
 
   render() {
-    console.log(this.state.coordinates);
+    // console.log(this.state.coordinates);
     return (
       <div className="createTrip container">
         <div className="planTrip">
