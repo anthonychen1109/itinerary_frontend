@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom'
+import withAuth from '../HOC/withAuth'
 
-export default class Profile extends Component {
+class Profile extends Component {
   render() {
     return (
 
@@ -22,3 +22,5 @@ export default class Profile extends Component {
     )
   }
 }
+
+export default withAuth(Profile)

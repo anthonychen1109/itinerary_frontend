@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PlanTrip from './PlanTrip';
 import WorldMap from './WorldMap';
 import { Redirect } from 'react-router-dom'
-
+import withAuth from '../HOC/withAuth'
 class CreateTrip extends Component {
 
   state = {
@@ -138,9 +138,6 @@ class CreateTrip extends Component {
 
 
   render() {
-    if (!this.props.loggedIn) {
-      return <Redirect to='/login' />
-    } else {
     return (
       <div className="createTrip container">
         <div className="planTrip">
@@ -170,7 +167,6 @@ class CreateTrip extends Component {
       </div>
     )
   }
-  }
 }
 
-export default CreateTrip;
+export default withAuth(CreateTrip)
