@@ -63,7 +63,7 @@ class NewTrip extends Component {
       const destinationsList = [...this.state.destinations, data.results[0].formatted_address.toString()]
       const coordinatesList = [...this.state.coordinates, [parseFloat(data.results[0].geometry.location.lat), parseFloat(data.results[0].geometry.location.lng)]]
       this.setState({
-        destination: destinationsList,
+        destinations: destinationsList,
         coordinates: coordinatesList
       })
     })
@@ -106,6 +106,7 @@ class NewTrip extends Component {
             onAddTrip={this.onAddTrip}
             handleAddTrip={this.handleAddTrip}
             findTrip={this.findTrip}
+            coordinates={this.state.coordinates}
             />
         </div>
         <div className="worldMap">

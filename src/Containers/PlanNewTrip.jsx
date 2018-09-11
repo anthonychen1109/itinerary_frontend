@@ -7,7 +7,8 @@ import AddTripModal from './AddTripModal';
 class PlanNewTrip extends Component {
 
   render() {
-
+    console.log(this.props.destinations);
+    console.log(this.props.coordinates);
     const renderTrips = () => {
       if (this.props.destinations.length > 0){
         const renderTrips = this.props.destinations.map( (destination, index) =>
