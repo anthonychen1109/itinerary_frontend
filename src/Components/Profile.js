@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import withAuth from '../HOC/withAuth'
 import { Link } from 'react-router-dom'
 import TripCard from './TripCard'
-class Profile extends Component {
 
+class Profile extends Component {
 
   state = {
     user: '',
@@ -11,13 +11,17 @@ class Profile extends Component {
     avatar: ''
   }
 
-
   genCards = (trips) => {
-    return trips.map(trip => {
-      return <TripCard key={trip.trip_id} trip={trip} />
-    })
+    if (trips.length > 0) {
+      return trips.map(trip => {
+        return <TripCard key={trip.trip_id} trip={trip} />
+      })
+    } else {
+      <div>
+        You currently have no trips
+      </div>
+    }
   }
-
 
   componentDidMount() {
     fetch(`http://localhost:3000/users/${this.props.currentUser.id}`)
@@ -31,14 +35,9 @@ class Profile extends Component {
     )
   }
 
-
-
-
-
   render() {
     console.log(this.state.trips)
     return (
-
       <div className="profile col s12 m8 offset-m2">
         <div className="card-panel grey lighten-5">
           <div className="row valign-wrapper">
