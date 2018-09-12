@@ -28,12 +28,14 @@ class WorldMap extends React.Component {
   }
 
   render() {
+    console.log(this.props.coordinates)
     const GoogleMapLocation = withGoogleMap(props => (
      <GoogleMap
        defaultCenter = { { lat: 40.701074, lng: -73.987064 } }
        defaultZoom = { 1 }
      >
      {this.props.coordinates.map((coordinate, index) => {
+       console.log(coordinate);
        return <Marker
          key={index}
          position={{ lat: parseFloat(coordinate.lat), lng: parseFloat(coordinate.lng) }}

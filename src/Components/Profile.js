@@ -2,17 +2,56 @@ import React, { Component } from 'react';
 import withAuth from '../HOC/withAuth'
 import { Link } from 'react-router-dom'
 import TripCard from './TripCard'
+import WorldMap from '../Containers/WorldMap'
+
 
 class Profile extends Component {
 
   state = {
     user: '',
     trips: [],
-    avatar: ''
+    avatar: '',
+    edit: false,
+    coordinates: []
+  }
+
+  editTrip = (trip) => {
+    this.setState( prevState => ({
+      edit: !prevState.edit,
+      coordinates: this.getCoordinatesForCurrentTrip(trip)
+    }))
+  }
+
+  deleteTrip = (trip) => {
+    fetch(`http://localhost:3000/trips/${trip.id}`, {
+      "method": "DELETE",
+      "headers": {
+        "Content-Type": 'application/json',
+        "Accept": 'application/json'
+      }
+    })
+  }
+
+
+  getCoordinatesForCurrentTrip = (trip) => {
+    let coords = []
+     trip.locations.map(location => {
+      let coord = {lat: location.lat, lng: location.lng}
+      coords.push(coord)
+    })
+    return coords
   }
 
   genCards = (trips) => {
     if (trips.length > 0) {
+<<<<<<< HEAD
+    return trips.map(trip => {
+      return <TripCard deleteTrip={this.deleteTrip} edit={this.state.edit} editTrip={this.editTrip} key={trip.trip_id} trip={trip} />
+    })
+  } else {
+    return <p> No trips yet </p>
+  }
+=======
       return trips.map(trip => {
         return <TripCard key={trip.trip_id} trip={trip} />
       })
@@ -21,22 +60,24 @@ class Profile extends Component {
         <h1 className="profileTrips">You currently have no trips</h1>
       </div>
     }
+>>>>>>> 7a9770c64e27afcc24b240e99bfc9c3338df0604
   }
 
   componentDidMount() {
     fetch(`http://localhost:3000/users/${this.props.currentUser.id}`)
     .then(r => r.json())
     .then(resp =>
+
       this.setState({
         user: resp.username,
         trips: resp.ctrips,
-        avatar: resp.avatar_url
+        avatar: resp.avatar_url,
+
       })
     )
   }
 
   render() {
-    console.log(this.state.trips)
     return (
       <div className="profile col s12 m8 offset-m2">
         <div className="card-panel grey lighten-5">
@@ -53,6 +94,10 @@ class Profile extends Component {
         <br />
         <h3 className="trips-profile">Your Trips</h3>
           {this.genCards(this.state.trips)}
+          {this.state.edit ?
+            <WorldMap coordinates={this.state.coordinates}/> :
+            null
+          }
       </div>
     )
   }

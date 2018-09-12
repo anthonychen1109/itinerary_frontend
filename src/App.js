@@ -79,7 +79,7 @@ class App extends Component {
         <Route exact path='/login' render={() => <Login
           loggedIn={loggedIn}
          handleLoginUser={this.handleLoginUser}/>} />
-        <Route exact path='/register' render={() => <Register loggedIn={loggedIn} />} />
+        <Route exact path='/register' render={() => <Register handleLoginUser={this.handleLoginUser} loggedIn={loggedIn} />} />
       </div>
     );
   }
