@@ -46,6 +46,7 @@ class TripModal extends Component {
     e.preventDefault()
     const dates = [this.state.startDate, this.state.endDate]
     this.props.handleDates(dates)
+    this.closeModal()
   }
 
   render() {
