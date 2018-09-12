@@ -189,11 +189,8 @@ class NewTrip extends Component {
   }
 
   render() {
-<<<<<<< HEAD
     console.log(this.props.currentUser);
-=======
-    // console.log(this.state.coordinates);
->>>>>>> 96c5345a9870bd279e322eaf5a69173506068c55
+
     return (
       <div className="createTrip container">
         <div className="planTrip">
