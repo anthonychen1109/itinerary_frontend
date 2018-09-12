@@ -50,7 +50,7 @@ class Profile extends Component {
             </div>
           </div>
         </div>
-        <Link className="waves-effect waves-red btn-flat" to='/newTrip'>Create A Trip</Link>
+        <Link className="waves-effect waves-red btn" to='/newTrip'>Create A Trip</Link>
         <br />
         <h3 className="trips-profile">Your Trips</h3>
           {this.genCards(this.state.trips)}
