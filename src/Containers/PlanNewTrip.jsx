@@ -35,9 +35,12 @@ class PlanNewTrip extends Component {
             <h3 className="planTripHeaders">
               Create Your Trip
             </h3>
+            <h5>
+              Starting Location:
+            </h5>
             <input
               type="text"
-              placeholder="Starting Location"
+              placeholder="Enter Starting Location"
               value={this.props.startingLocation}
               onChange={this.props.addStartLocation}
               />
@@ -55,9 +58,12 @@ class PlanNewTrip extends Component {
             <p className="planTripAddP">Add another location</p>
           </div>
           <div>
+            <h5>
+              Ending Location:
+            </h5>
             <input
               type="text"
-              placeholder="Ending Location"
+              placeholder="Enter Ending Location"
               value={this.props.endingLocation}
               onChange={this.props.addEndingLocation}
               />
