@@ -233,6 +233,7 @@ class NewTrip extends Component {
   createNewLocations = (locations) => {
     console.log("Creating if nonexistent")
     // const destinations = this.state.destinations
+    // debugger
     const coordinates = this.state.coordinates
     const locs = locations.map( (location, index) => {
       const newLocations = {
@@ -291,7 +292,7 @@ class NewTrip extends Component {
       body: JSON.stringify(newRelation)
     })
       .then(res => res.json())
-      .then(console.log)
+      .then(data => console.log(data))
     }
 
 
