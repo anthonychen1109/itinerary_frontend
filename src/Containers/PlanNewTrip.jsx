@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import Calendar from 'react-calendar';
 import TripModal from './TripModal';
-import TripInput from './TripInput';
+import TripInput from '../Components/TripInput';
 import AddTripModal from './AddTripModal';
 
 class PlanNewTrip extends Component {

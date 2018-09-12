@@ -12,7 +12,7 @@ class NewTrip extends Component {
     endingLocation: '',
     tripName: '',
     coordinates: [],
-    currentTrip: '',
+    // currentTrip: '',
     startDate: '',
     endDate: '',
     allTrips: [],
@@ -143,11 +143,14 @@ class NewTrip extends Component {
 
   deleteTrip = (destination, e) => {
     e.preventDefault()
-    console.log(destination);
-    console.log(this.state.destinations.toString());
+    // console.log(this.state.destinations.toString());
     const removeDestination = destination
-    const newDestinations = this.state.destinations.filter( destination => destination !== removeDestination)
-    this.setState({ destinations: newDestinations }, this.deleteCoordinates)
+    const newDestinations = this.state.additionalLocations.filter( destination => destination !== removeDestination)
+    this.setState({ additionalLocations: newDestinations }, this.deleteCoordinates)
+  }
+
+  deleteCoordinates = () => {
+    console.log('deleted coords');
   }
 
 
@@ -186,12 +189,8 @@ class NewTrip extends Component {
 
   // END CREATION
 
-  deleteCoordinates = () => {
-    console.log('delete coordinates');
-  }
-
   render() {
-    
+
     return (
       <div className="createTrip container">
         <div className="planTrip">

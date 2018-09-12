@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import NavBar from './Components/NavBar'
 import Home from './Components/Home'
-import CreateTrip from './Containers/CreateTrip';
 import NewTrip from './Containers/NewTrip';
 import './Assets/css/styles.css';
 import Login from './Components/Login'
@@ -63,7 +62,6 @@ class App extends Component {
         <NavBar />
         <Route exact path='/profile' render={() => <Profile currentUser={this.state.auth.currentUser} loggedIn={loggedIn} />} />
         <Route exact path='/' component={Home} />
-        <Route exact path='/map' render={() => <CreateTrip loggedIn={loggedIn} />} />
         <Route exact path='/newTrip' render={() => <NewTrip loggedIn={loggedIn} currentUser={this.state.auth.currentUser}/>} />
         <Route exact path='/login' render={() => <Login
           loggedIn={loggedIn}
