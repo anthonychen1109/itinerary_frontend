@@ -200,11 +200,28 @@ class NewTrip extends Component {
         const myTrip =  allMatches[allMatches.length-1]
         this.setState({
           currentTrip: myTrip
-        }, this.createNewLocations)
+        }, this.checkLocations)
       })
   }
+
+  checkLocations = () => {
+    // console.log('Check Locs')
+    const destinations = this.state.destinations
+    const fetchLocations = this.state.filterLocations
+    if (fetchLocations.length === 0) {
+      this.createNewLocations()
+    } else {
+      // console.log(destinations.length, fetchLocations.length)
+      for (let i = 0; i < fetchLocations.length; i++) {
+        for (let j = 0; j < destinations.length; j++) {
+          fetchLocations[i].name === destinations[j] ? this.findTrips() : this.createNewLocations()
+        }
+      }
+    }
+  }
+
   createNewLocations = () => {
-    console.log('Create New Locs')
+    console.log("Creating if nonexistent")
     const destinations = this.state.destinations
     const coordinates = this.state.coordinates
     const newLocations = [{
@@ -232,22 +249,8 @@ class NewTrip extends Component {
     })
   }
 
-  updateTripsRelationships = () => {
-    const destinations = this.state.destinations
-    const fetchLocations = this.state.filterLocations
-    const newRelations = fetchLocations.map(location => {
-      return destinations.map(destination => {
-        if (destination === location.name) {
-          return location
-        }
-      })
-    })
-    // console.log("New", newRelations)
-    return newRelations
-
-  }
-
   findTrips = () => {
+    console.log('Finding trips')
     // console.log("Find", this.state.destinations)
     const destinations = this.state.destinations
     const fetchLocations = this.state.filterLocations
@@ -257,11 +260,14 @@ class NewTrip extends Component {
         fetchLocations[i].name === destinations[j] ? arr.push(fetchLocations[i]) : null
       }
     }
-    this.setRelations(arr)
+    const newRelations = [...this.state.relations, arr]
+    this.setState({
+      relations: newRelations
+    }, () => this.setRelations(arr))
   }
 
   setRelations = (locations) => {
-    console.log(locations)
+    console.log('We made it')
   locations.forEach(location => {
     const newRelation = {
       trip_id: this.state.currentTrip.id,
@@ -292,8 +298,8 @@ class NewTrip extends Component {
      }
    })
     .then(res => res.json())
-    .then(res => this.setState({
-      filterLocations: res
+    .then(data => this.setState({
+      filterLocations: data
       })
     )
   }
