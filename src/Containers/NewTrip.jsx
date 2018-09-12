@@ -178,12 +178,33 @@ class NewTrip extends Component {
       body: JSON.stringify(newTrip)
     })
       .then(res => res.json())
-      .then(this.createNewLocations)
+      .then(this.fetchCurrentTrip)
   }
 
-
+  fetchCurrentTrip = () => {
+    fetch(`http://localhost:3000/trips`, {
+     "method": "GET",
+     "headers": {
+       "Content-Type": 'application/json',
+       "Accept": 'application/json',
+       "Authorization": localStorage.getItem('token')
+     }
+   })
+      .then(res => res.json())
+      .then(trips => {
+        // console.log(trips)
+        const allMatches = trips.filter(trip => {
+          return trip.user_id === this.props.currentUser.id
+        })
+        // console.log(allMatches[allMatches.length-1])
+        const myTrip =  allMatches[allMatches.length-1]
+        this.setState({
+          currentTrip: myTrip
+        }, this.createNewLocations)
+      })
+  }
   createNewLocations = () => {
-    // console.log(this.state.destinations)
+    console.log('Create New Locs')
     const destinations = this.state.destinations
     const coordinates = this.state.coordinates
     const newLocations = [{
@@ -196,7 +217,6 @@ class NewTrip extends Component {
     lat: coordinates[1].lat,
     lng: coordinates[1].lng
   }]
-  // console.log(newLocations)
   newLocations.forEach(location => {
     fetch(`http://localhost:3000/locations`, {
       method: 'POST',
@@ -222,13 +242,13 @@ class NewTrip extends Component {
         }
       })
     })
-    console.log("New", newRelations)
+    // console.log("New", newRelations)
     return newRelations
 
   }
 
   findTrips = () => {
-    console.log("Find", this.state.destinations)
+    // console.log("Find", this.state.destinations)
     const destinations = this.state.destinations
     const fetchLocations = this.state.filterLocations
     const arr = []
@@ -241,10 +261,10 @@ class NewTrip extends Component {
   }
 
   setRelations = (locations) => {
-
+    console.log(locations)
   locations.forEach(location => {
     const newRelation = {
-      trip_id: 1,
+      trip_id: this.state.currentTrip.id,
       location_id: location.id
     }
     console.log(newRelation)
@@ -259,7 +279,7 @@ class NewTrip extends Component {
     })
       .then(res => res.json())
       .then(console.log)
-  })
+    })
   }
 
   fetchLocations = () => {
