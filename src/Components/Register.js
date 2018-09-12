@@ -47,9 +47,11 @@ export default class Register extends Component {
         "Accept": 'application/json'
       }
     })
-    .then(() => <Redirect to='/login'/>)
-
-
+    .then(r => r.json())
+    .then(resp => {
+      this.props.handleLoginUser(resp.user)
+      localStorage.setItem('token', resp.jwt)
+    })
 
   }
 

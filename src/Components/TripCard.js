@@ -17,7 +17,7 @@ export default class TripCard extends Component {
     const trip = this.props.trip
     return (
 
-      <div className="card small">
+      <div className="card">
         <div className= "card-content">
         <p>{trip.title}</p>
         <p>{trip.description}</p>
@@ -27,6 +27,7 @@ export default class TripCard extends Component {
         <ul>
           <p>Locations:</p>
           {this.locations(trip.locations)}
+          <button onClick={() => this.props.deleteTrip(trip)} className="button2 waves-effect waves-light btn-small">Delete Trip</button>
         </ul>
         </div>
       </div>
