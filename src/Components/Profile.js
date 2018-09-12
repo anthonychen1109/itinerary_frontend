@@ -64,17 +64,7 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-    fetch(`http://localhost:3000/users/${this.props.currentUser.id}`)
-    .then(r => r.json())
-    .then(resp =>
-
-      this.setState({
-        user: resp.username,
-        trips: resp.ctrips,
-        avatar: resp.avatar_url,
-
-      })
-    )
+    this.props.fetchUser()
   }
 
   render() {

@@ -52,6 +52,20 @@ class App extends Component {
       }
     }
 
+    fetchUser = () => {
+      return fetch(`http://localhost:3000/users/${this.props.currentUser.id}`)
+      .then(r => r.json())
+      .then(resp =>
+
+        this.setState({
+          user: resp.username,
+          trips: resp.ctrips,
+          avatar: resp.avatar_url,
+
+        })
+      )
+    }
+
     handleLogout = () => {
     this.setState((prevState) => {
        return {
@@ -73,7 +87,7 @@ class App extends Component {
     return (
       <div>
         <NavBar handleLogout={this.handleLogout} loggedIn={loggedIn} />
-        <Route exact path='/profile' render={() => <Profile currentUser={this.state.auth.currentUser} loggedIn={loggedIn} />} />
+        <Route exact path='/profile' render={() => <Profile currentUser={this.state.auth.currentUser} loggedIn={loggedIn} fetchUser={this.fetchUser}/>} />
         <Route exact path='/' component={Home} />
         <Route exact path='/newTrip' render={() => <NewTrip loggedIn={loggedIn} currentUser={this.state.auth.currentUser}/>} />
         <Route exact path='/login' render={() => <Login
