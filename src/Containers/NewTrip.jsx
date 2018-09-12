@@ -192,32 +192,34 @@ class NewTrip extends Component {
   render() {
 
     return (
-      <div className="createTrip container">
-        <div className="planTrip">
-          <PlanNewTrip
-            destinations={this.state.destinations}
-            startingLocation={this.state.startingLocation}
-            endingLocation={this.state.endingLocation}
-            addStartLocation={this.addStartLocation}
-            addEndingLocation={this.addEndingLocation}
-            tripName={this.state.tripName}
-            onAddTrip={this.onAddTrip}
-            handleAddTrip={this.handleAddTrip}
-            findTrip={this.findTrip}
-            coordinates={this.state.coordinates}
-            handleDates={this.handleDates}
-            modifyDestination={this.modifyDestination}
-            deleteTrip={this.deleteTrip}
-            additionalLocations={this.state.additionalLocations}
-            />
-        </div>
-        <div className="worldMap">
-          <WorldMap
-            coordinates={this.state.coordinates}
-            startingLocation={this.state.startingLocation}
-            endingLocation={this.state.endingLocation}
-            destinations={this.state.destinations}
-            />
+      <div className="createTrip">
+        <div className="trips container">
+          <div className="planTrip">
+            <PlanNewTrip
+              destinations={this.state.destinations}
+              startingLocation={this.state.startingLocation}
+              endingLocation={this.state.endingLocation}
+              addStartLocation={this.addStartLocation}
+              addEndingLocation={this.addEndingLocation}
+              tripName={this.state.tripName}
+              onAddTrip={this.onAddTrip}
+              handleAddTrip={this.handleAddTrip}
+              findTrip={this.findTrip}
+              coordinates={this.state.coordinates}
+              handleDates={this.handleDates}
+              modifyDestination={this.modifyDestination}
+              deleteTrip={this.deleteTrip}
+              additionalLocations={this.state.additionalLocations}
+              />
+          </div>
+          <div className="worldMap">
+            <WorldMap
+              coordinates={this.state.coordinates}
+              startingLocation={this.state.startingLocation}
+              endingLocation={this.state.endingLocation}
+              destinations={this.state.destinations}
+              />
+          </div>
         </div>
       </div>
     )
