@@ -11,7 +11,7 @@ export default class TripCard extends Component {
 
   locations = (locations) => {
     return locations.map(location => {
-      return <li className="tripcard-locations" key={location.id}>{location.name}</li>
+      return <li key={location.id}>{location.name}</li>
     })
   }
 
@@ -23,14 +23,14 @@ export default class TripCard extends Component {
     const trip = this.props.trip
     return (
 
-      <div className="card small">
+      <div className="card">
         <div className= "card-content">
         <p>{trip.title}</p>
         <p>{trip.description}</p>
         <p>Start: {trip.start_date}</p>
         <p>End: {trip.end_date}</p>
 
-        <ul>
+        <ul >
           <p>Locations:</p>
           {this.locations(trip.locations)}
           <br/>

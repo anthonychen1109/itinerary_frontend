@@ -210,7 +210,9 @@
 .card  {
   background-color: pink;
   width: 20rem;
+  height: 20rem;
   margin-left: 1rem;
+  overflow: scroll;
 
 }
 

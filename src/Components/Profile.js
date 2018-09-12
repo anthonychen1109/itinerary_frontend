@@ -23,12 +23,23 @@ class Profile extends Component {
   }
 
   deleteTrip = (trip) => {
-    fetch(`http://localhost:3000/trips/${trip.id}`, {
+
+    fetch(`http://localhost:3000/trips/${trip.trip_id}`, {
       "method": "DELETE",
       "headers": {
         "Content-Type": 'application/json',
-        "Accept": 'application/json'
+        "Accept": 'application/json',
+        "Authorization": localStorage.getItem('token')
       }
+    })
+    this.setState(prevState => ({
+      trips: this.filterOutTrips(prevState.trips, trip)
+    }))
+  }
+
+  filterOutTrips = (array, trip) => {
+    return array.filter(a => {
+      return a.trip_id !== trip.trip_id
     })
   }
 
@@ -44,23 +55,12 @@ class Profile extends Component {
 
   genCards = (trips) => {
     if (trips.length > 0) {
-<<<<<<< HEAD
     return trips.map(trip => {
       return <TripCard deleteTrip={this.deleteTrip} edit={this.state.edit} editTrip={this.editTrip} key={trip.trip_id} trip={trip} />
     })
   } else {
-    return <p> No trips yet </p>
+    return <p className="profileTrips"> No trips yet </p>
   }
-=======
-      return trips.map(trip => {
-        return <TripCard key={trip.trip_id} trip={trip} />
-      })
-    } else {
-      <div>
-        <h1 className="profileTrips">You currently have no trips</h1>
-      </div>
-    }
->>>>>>> 7a9770c64e27afcc24b240e99bfc9c3338df0604
   }
 
   componentDidMount() {
@@ -93,6 +93,7 @@ class Profile extends Component {
         <Link className="waves-effect waves-red btn" to='/newTrip'>Create A Trip</Link>
         <br />
         <h3 className="trips-profile">Your Trips</h3>
+
           {this.genCards(this.state.trips)}
           {this.state.edit ?
             <WorldMap coordinates={this.state.coordinates}/> :
