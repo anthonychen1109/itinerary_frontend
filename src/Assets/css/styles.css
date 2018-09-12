@@ -178,3 +178,18 @@
 .addTripModalButton {
   margin: 10px;
 }
+
+.card  {
+  background-color: pink;
+  width: 20rem;
+  margin-left: 1rem;
+
+}
+
+.trips-profile {
+  margin-left: 4rem;
+}
+
+.profile {
+  background-color: lightblue;
+}
