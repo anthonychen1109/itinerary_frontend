@@ -8,7 +8,7 @@ export default class TripCard extends Component {
 
   locations = (locations) => {
     return locations.map(location => {
-      return <li key={location.id}>{location.name}</li>
+      return <li className="tripcard-locations" key={location.id}>{location.name}</li>
     })
   }
 

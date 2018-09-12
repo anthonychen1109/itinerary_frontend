@@ -34,7 +34,7 @@ class PlanNewTrip extends Component {
             <h3 className="planTripHeaders">
               Create Your Trip
             </h3>
-            <h5>
+            <h5 className="planTripStartingLocHeader">
               Starting Location:
             </h5>
             <input
@@ -45,7 +45,7 @@ class PlanNewTrip extends Component {
               />
           </div>
           <div className="planTripInputs">
-            <h5>Locations: </h5>
+            <h5 className="planTripStartingLocHeader">Locations: </h5>
             {renderTrips()}
           </div>
           <div className="planTripAdd">
@@ -57,7 +57,7 @@ class PlanNewTrip extends Component {
             <p className="planTripAddP">Add another location</p>
           </div>
           <div>
-            <h5>
+            <h5 className="planTripStartingLocHeader">
               Ending Location:
             </h5>
             <input

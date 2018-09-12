@@ -18,7 +18,7 @@ class Profile extends Component {
       })
     } else {
       <div>
-        You currently have no trips
+        <h1 className="profileTrips">You currently have no trips</h1>
       </div>
     }
   }
@@ -45,7 +45,7 @@ class Profile extends Component {
               <img src={this.state.avatar} alt="icon" className="circle responsive-img"/>
             </div>
             <div className="col s10">
-                Welcome {this.state.user}, to your travel archive!
+                <h1 className="profileTrips">Welcome {this.state.user}, to your travel archive!</h1>
             </div>
           </div>
         </div>

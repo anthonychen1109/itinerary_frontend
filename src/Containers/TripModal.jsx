@@ -52,7 +52,7 @@ class TripModal extends Component {
   render() {
     return (
       <div>
-        <button className="btn btn-primary" onClick={this.openModal}>Select Trip Dates</button>
+        <button className="btn btn-primary tripModalBtn" onClick={this.openModal}>Select Trip Dates</button>
 
         <Modal
           isOpen={this.state.modalIsOpen}
@@ -64,14 +64,14 @@ class TripModal extends Component {
           <h2 className="modalTripHeader">Select Your Trip Dates: </h2>
           <div className="modalCalendar">
             <div className="modalCalendarDivs">
-              <h2>Start Date</h2>
+              <h2 className="modalTripHeader">Start Date</h2>
               <Calendar
                 onChange={this.startDate}
                 value={this.state.startDate}
                 />
             </div>
             <div className="modalCalendarDivs">
-              <h2>End Date</h2>
+              <h2 className="modalTripHeader">End Date</h2>
               <Calendar
                 onChange={this.endDate}
                 value={this.state.endDate}

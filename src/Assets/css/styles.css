@@ -36,6 +36,20 @@
 
 /* ##################################### PLAN TRIP ##################################### */
 
+.planTripHeaders,
+.planTripStartingLocHeader,
+.tripModalBtn,
+.modalTripHeader,
+.profileTrips,
+.trips-profile,
+.tripcard-locations {
+  font-family: 'Gamja Flower', cursive;
+}
+
+.card-content p {
+  font-family: 'Gamja Flower', cursive;
+}
+
 .planTripForm div {
   display: flex;
   flex-direction: column;
