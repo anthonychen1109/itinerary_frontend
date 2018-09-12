@@ -16,7 +16,8 @@ class NewTrip extends Component {
     startDate: '',
     endDate: '',
     allTrips: [],
-    currentTrip: {}
+    currentTrip: {},
+    additionalLocations: []
   }
 
   addStartLocation = (e) => {
@@ -73,8 +74,7 @@ class NewTrip extends Component {
     });
     const newLocation = this.state.tripName
     this.setState({
-      destinations: [...this.state.destinations, newLocation],
-      tripName: ''
+      additionalLocations: [...this.state.additionalLocations, newLocation]
     })
     console.log("added trip testing");
   }
@@ -112,7 +112,7 @@ class NewTrip extends Component {
         const destination = data.results[0].formatted_address.toString()
         const coordinatesList = {lat: parseFloat(data.results[0].geometry.location.lat), lng: parseFloat(data.results[0].geometry.location.lng)}
         return {
-          destinations: [...prevState.destinations, destination],
+          additionalLocations: [...prevState.additionalLocations, destination],
           coordinates: [...prevState.coordinates, coordinatesList]
         }
       })
@@ -191,7 +191,6 @@ class NewTrip extends Component {
   }
 
   render() {
-    // console.log(this.props.currentUser);
 
     return (
       <div className="createTrip container">
@@ -210,6 +209,7 @@ class NewTrip extends Component {
             handleDates={this.handleDates}
             modifyDestination={this.modifyDestination}
             deleteTrip={this.deleteTrip}
+            additionalLocations={this.state.additionalLocations}
             />
         </div>
         <div className="worldMap">
