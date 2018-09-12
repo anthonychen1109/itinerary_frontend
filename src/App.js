@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import NavBar from './Components/NavBar'
 import Home from './Components/Home'
-import CreateTrip from './Containers/CreateTrip';
 import NewTrip from './Containers/NewTrip';
 import './Assets/css/styles.css';
 import Login from './Components/Login'
 import Register from './Components/Register'
-import {Route} from 'react-router-dom'
+import {Route, Redirect} from 'react-router-dom'
 import Profile from './Components/Profile'
 
 class App extends Component {
@@ -53,6 +52,19 @@ class App extends Component {
       }
     }
 
+    handleLogout = () => {
+    this.setState((prevState) => {
+       return {
+         auth: {
+           ...prevState.auth,
+           currentUser: {}
+         }
+       }
+    })
+    localStorage.clear()
+    return <Redirect to='/home' />
+  }
+
 
 
 
@@ -60,10 +72,9 @@ class App extends Component {
     const loggedIn = !!this.state.auth.currentUser.id
     return (
       <div>
-        <NavBar />
+        <NavBar handleLogout={this.handleLogout} loggedIn={loggedIn} />
         <Route exact path='/profile' render={() => <Profile currentUser={this.state.auth.currentUser} loggedIn={loggedIn} />} />
         <Route exact path='/' component={Home} />
-        <Route exact path='/map' render={() => <CreateTrip loggedIn={loggedIn} />} />
         <Route exact path='/newTrip' render={() => <NewTrip loggedIn={loggedIn} currentUser={this.state.auth.currentUser}/>} />
         <Route exact path='/login' render={() => <Login
           loggedIn={loggedIn}

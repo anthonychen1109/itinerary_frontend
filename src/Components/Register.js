@@ -30,6 +30,9 @@ export default class Register extends Component {
   }
 
 
+
+
+
   handleSubmit = (e) => {
     e.preventDefault()
     fetch('http://localhost:3000/users', {
@@ -44,6 +47,8 @@ export default class Register extends Component {
         "Accept": 'application/json'
       }
     })
+    .then(() => <Redirect to='/login'/>)
+
 
 
   }

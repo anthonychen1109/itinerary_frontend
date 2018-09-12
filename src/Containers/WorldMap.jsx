@@ -1,6 +1,5 @@
 import React from 'react';
 import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
-import { Link } from 'react-router-dom';
 
 class WorldMap extends React.Component {
 
@@ -29,13 +28,6 @@ class WorldMap extends React.Component {
   }
 
   render() {
-    // return <Marker
-    //   key={index}
-    //   position={{ lat: 40.701074, lng: -73.987064 }}
-    //   />
-    // console.log(this.props.coordinates);
-    console.log(this.props.destinations.length);
-    console.log(this.props.coordinates);
     const GoogleMapLocation = withGoogleMap(props => (
      <GoogleMap
        defaultCenter = { { lat: 40.701074, lng: -73.987064 } }

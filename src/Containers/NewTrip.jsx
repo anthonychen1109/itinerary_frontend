@@ -17,7 +17,8 @@ class NewTrip extends Component {
     allTrips: [],
     currentTrip: {},
     filterLocations: [],
-    relations: []
+    relations: [],
+    additionalLocations: []
   }
 
   addStartLocation = (e) => {
@@ -38,8 +39,8 @@ class NewTrip extends Component {
         const destination = data.results[0].formatted_address.toString()
         const coordinatesList = {lat: parseFloat(data.results[0].geometry.location.lat), lng: parseFloat(data.results[0].geometry.location.lng)}
         return {
-          destinations: [...prevState.destinations, destination],
-          coordinates: [...prevState.coordinates, coordinatesList]
+          destinations: [destination, ...prevState.destinations],
+          coordinates: [coordinatesList, ...prevState.coordinates]
         }
       }, () => this.fetchEndLocation())
     })
@@ -78,8 +79,7 @@ class NewTrip extends Component {
     });
     const newLocation = this.state.tripName
     this.setState({
-      destinations: [...this.state.destinations, newLocation],
-      tripName: ''
+      additionalLocations: [...this.state.additionalLocations, newLocation]
     })
     console.log("added trip testing");
   }
@@ -110,17 +110,19 @@ class NewTrip extends Component {
 
   findTrip = (e) => {
     e.preventDefault()
-    console.log('findtrip');
-    // fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${this.state.tripName}&key=AIzaSyBoAZrNZdcLmM-Ei7YtwELfS20Hb3bG_N4`)
-    // .then( res => res.json() )
-    // .then(data => {
-    //   const destinationsList = [...this.state.destinations, data.results[0].formatted_address.toString()]
-    //   const coordinatesList = [...this.state.coordinates, [parseFloat(data.results[0].geometry.location.lat), parseFloat(data.results[0].geometry.location.lng)]]
-    //   this.setState({
-    //     destinations: destinationsList,
-    //     coordinates: coordinatesList
-    //   })
-    // })
+    fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${this.state.tripName}&key=AIzaSyBoAZrNZdcLmM-Ei7YtwELfS20Hb3bG_N4`)
+    .then( res => res.json() )
+    .then(data => {
+      this.setState(prevState => {
+        const destination = data.results[0].formatted_address.toString()
+        const coordinatesList = {lat: parseFloat(data.results[0].geometry.location.lat), lng: parseFloat(data.results[0].geometry.location.lng)}
+        return {
+          additionalLocations: [...prevState.additionalLocations, destination],
+          coordinates: [...prevState.coordinates, coordinatesList]
+        }
+      })
+    })
+    this.setState({ tripName: '' })
   }
 
   setDestinations = (location) => {
@@ -146,11 +148,14 @@ class NewTrip extends Component {
 
   deleteTrip = (destination, e) => {
     e.preventDefault()
-    console.log(destination);
-    console.log(this.state.destinations.toString());
+    // console.log(this.state.destinations.toString());
     const removeDestination = destination
-    const newDestinations = this.state.destinations.filter( destination => destination !== removeDestination)
-    this.setState({ destinations: newDestinations }, this.deleteCoordinates)
+    const newDestinations = this.state.additionalLocations.filter( destination => destination !== removeDestination)
+    this.setState({ additionalLocations: newDestinations }, this.deleteCoordinates)
+  }
+
+  deleteCoordinates = () => {
+    console.log('deleted coords');
   }
 
 
@@ -299,49 +304,36 @@ class NewTrip extends Component {
   }
   // END CREATION
 
-  deleteCoordinates = () => {
-    console.log('delete coordinates');
-  }
-
   render() {
-    // const arr1 = ["bronx"]
-    // const arr2 = ["bronx", "paris", "london", "brooklyn"]
-    // const new_arr = []
-    // for (let i=0; i<arr1.length; i++) {
-    //   for (let j=0; j<arr2.length; j++) {
-    //     if (arr1[i] === arr2[j]) {
-    //       new_arr.push(arr1[i])
-    //     }
-    //   }
-    // }
-    // console.log(new_arr);
-    // console.log(this.state.filterLocations);
     return (
-      <div className="createTrip container">
-        <div className="planTrip">
-          <PlanNewTrip
-            destinations={this.state.destinations}
-            startingLocation={this.state.startingLocation}
-            endingLocation={this.state.endingLocation}
-            addStartLocation={this.addStartLocation}
-            addEndingLocation={this.addEndingLocation}
-            tripName={this.state.tripName}
-            onAddTrip={this.onAddTrip}
-            handleAddTrip={this.handleAddTrip}
-            findTrip={this.findTrip}
-            coordinates={this.state.coordinates}
-            handleDates={this.handleDates}
-            modifyDestination={this.modifyDestination}
-            deleteTrip={this.deleteTrip}
-            />
-        </div>
-        <div className="worldMap">
-          <WorldMap
-            coordinates={this.state.coordinates}
-            startingLocation={this.state.startingLocation}
-            endingLocation={this.state.endingLocation}
-            destinations={this.state.destinations}
-            />
+      <div className="createTrip">
+        <div className="trips container">
+          <div className="planTrip">
+            <PlanNewTrip
+              destinations={this.state.destinations}
+              startingLocation={this.state.startingLocation}
+              endingLocation={this.state.endingLocation}
+              addStartLocation={this.addStartLocation}
+              addEndingLocation={this.addEndingLocation}
+              tripName={this.state.tripName}
+              onAddTrip={this.onAddTrip}
+              handleAddTrip={this.handleAddTrip}
+              findTrip={this.findTrip}
+              coordinates={this.state.coordinates}
+              handleDates={this.handleDates}
+              modifyDestination={this.modifyDestination}
+              deleteTrip={this.deleteTrip}
+              additionalLocations={this.state.additionalLocations}
+              />
+          </div>
+          <div className="worldMap">
+            <WorldMap
+              coordinates={this.state.coordinates}
+              startingLocation={this.state.startingLocation}
+              endingLocation={this.state.endingLocation}
+              destinations={this.state.destinations}
+              />
+          </div>
         </div>
       </div>
     )

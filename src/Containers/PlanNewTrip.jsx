@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import Calendar from 'react-calendar';
 import TripModal from './TripModal';
-import TripInput from './TripInput';
+import TripInput from '../Components/TripInput';
 import AddTripModal from './AddTripModal';
 
 class PlanNewTrip extends Component {
@@ -10,17 +9,18 @@ class PlanNewTrip extends Component {
     // Render all trips
     const renderTrips = () => {
       // If there is only 1 destination other than start and end
-      if (this.props.destinations.length === 1) {
-        return <TripInput destination={this.props.destinations[0]} modifyDestination={this.props.modifyDestination} deleteTrip={this.props.deleteTrip} />
-      } // If there is more than 1 destination other than start and end
-      else if(this.props.destinations.length > 1) {
-        return this.props.destinations.map( (destination, index ) =>
-        <TripInput
-          key={index}
-          destination={destination}
-          modifyDestination={this.props.modifyDestination}
-          deleteTrip={this.props.deleteTrip}/>
-        )
+      if (this.props.additionalLocations.length === 1) {
+        return <TripInput destination={this.props.additionalLocations[0]} modifyDestination={this.props.modifyDestination} deleteTrip={this.props.deleteTrip} />
+      }
+      // If there is more than 1 destination other than start and end
+      else if(this.props.additionalLocations.length > 1) {
+        return this.props.additionalLocations.map( (location, index) => {
+          return <TripInput
+            key={index}
+            destination={location}
+            modifyDestination={this.props.modifyDestination}
+            deleteTrip={this.props.deleteTrip}/>
+        })
       } // if there are no destinations
       else {
         return <div>Add another location</div>
@@ -34,15 +34,18 @@ class PlanNewTrip extends Component {
             <h3 className="planTripHeaders">
               Create Your Trip
             </h3>
+            <h5 className="planTripStartingLocHeader">
+              Starting Location:
+            </h5>
             <input
               type="text"
-              placeholder="Starting Location"
+              placeholder="Enter Starting Location"
               value={this.props.startingLocation}
               onChange={this.props.addStartLocation}
               />
           </div>
           <div className="planTripInputs">
-            <h5>Locations: </h5>
+            <h5 className="planTripStartingLocHeader">Locations: </h5>
             {renderTrips()}
           </div>
           <div className="planTripAdd">
@@ -54,9 +57,12 @@ class PlanNewTrip extends Component {
             <p className="planTripAddP">Add another location</p>
           </div>
           <div>
+            <h5 className="planTripStartingLocHeader">
+              Ending Location:
+            </h5>
             <input
               type="text"
-              placeholder="Ending Location"
+              placeholder="Enter Ending Location"
               value={this.props.endingLocation}
               onChange={this.props.addEndingLocation}
               />
