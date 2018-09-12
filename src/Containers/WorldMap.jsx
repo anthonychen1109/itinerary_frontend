@@ -34,8 +34,8 @@ class WorldMap extends React.Component {
     //   position={{ lat: 40.701074, lng: -73.987064 }}
     //   />
     // console.log(this.props.coordinates);
-    console.log(this.props.destinations.length);
-    console.log(this.props.coordinates);
+    // console.log(this.props.destinations.length);
+    // console.log(this.props.coordinates);
     const GoogleMapLocation = withGoogleMap(props => (
      <GoogleMap
        defaultCenter = { { lat: 40.701074, lng: -73.987064 } }

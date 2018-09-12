@@ -33,8 +33,8 @@ class NewTrip extends Component {
         const destination = data.results[0].formatted_address.toString()
         const coordinatesList = {lat: parseFloat(data.results[0].geometry.location.lat), lng: parseFloat(data.results[0].geometry.location.lng)}
         return {
-          destinations: [...prevState.destinations, destination],
-          coordinates: [...prevState.coordinates, coordinatesList]
+          destinations: [destination, ...prevState.destinations],
+          coordinates: [coordinatesList, ...prevState.coordinates]
         }
       }, () => this.fetchEndLocation())
     })
@@ -105,17 +105,19 @@ class NewTrip extends Component {
 
   findTrip = (e) => {
     e.preventDefault()
-    console.log('findtrip');
-    // fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${this.state.tripName}&key=AIzaSyBoAZrNZdcLmM-Ei7YtwELfS20Hb3bG_N4`)
-    // .then( res => res.json() )
-    // .then(data => {
-    //   const destinationsList = [...this.state.destinations, data.results[0].formatted_address.toString()]
-    //   const coordinatesList = [...this.state.coordinates, [parseFloat(data.results[0].geometry.location.lat), parseFloat(data.results[0].geometry.location.lng)]]
-    //   this.setState({
-    //     destinations: destinationsList,
-    //     coordinates: coordinatesList
-    //   })
-    // })
+    fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${this.state.tripName}&key=AIzaSyBoAZrNZdcLmM-Ei7YtwELfS20Hb3bG_N4`)
+    .then( res => res.json() )
+    .then(data => {
+      this.setState(prevState => {
+        const destination = data.results[0].formatted_address.toString()
+        const coordinatesList = {lat: parseFloat(data.results[0].geometry.location.lat), lng: parseFloat(data.results[0].geometry.location.lng)}
+        return {
+          destinations: [...prevState.destinations, destination],
+          coordinates: [...prevState.coordinates, coordinatesList]
+        }
+      })
+    })
+    this.setState({ tripName: '' })
   }
 
   setDestinations = (location) => {
@@ -189,7 +191,7 @@ class NewTrip extends Component {
   }
 
   render() {
-    console.log(this.props.currentUser);
+    // console.log(this.props.currentUser);
 
     return (
       <div className="createTrip container">
