@@ -191,7 +191,7 @@ class NewTrip extends Component {
   }
 
   render() {
-
+    
     return (
       <div className="createTrip container">
         <div className="planTrip">
