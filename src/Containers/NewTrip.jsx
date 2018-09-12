@@ -235,28 +235,9 @@ class NewTrip extends Component {
     for (let i = 0; i < fetchLocations.length; i++) {
       for (let j = 0; j < destinations.length; j++) {
         fetchLocations[i].name === destinations[j] ? arr.push(fetchLocations[i]) : null
-        // console.log(fetchLocations[i].name);
-        // console.log(destinations[j]);
-        // console.log(fetchLocations[i].name === destinations[j]);
       }
     }
     this.setRelations(arr)
-
-    // const newRelations = [...this.state.relations, arr]
-    // this.setState({
-    //   relations: newRelations
-    // })
-    // console.log("Found", this.state.relations)
-    // const found = fetchLocations.forEach(location => {
-    //   let newArr = []
-    //     const newlocs = destinations.forEach(destination => {
-    //     if (destination === location.name) {
-    //       return newArr.push(location)
-    //     }
-    //   })
-    //   return newArr
-    // })
-    // console.log("Found", newArr)
   }
 
   setRelations = (locations) => {
@@ -279,12 +260,6 @@ class NewTrip extends Component {
       .then(res => res.json())
       .then(console.log)
   })
-
-    // console.log(locations)
-    // const newRelations = [...this.state.relations, locations]
-    // this.setState({
-    //   relations: newRelations
-    // })
   }
 
   fetchLocations = () => {
