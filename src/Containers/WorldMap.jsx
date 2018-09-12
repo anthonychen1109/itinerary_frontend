@@ -1,6 +1,5 @@
 import React from 'react';
 import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
-import { Link } from 'react-router-dom';
 
 class WorldMap extends React.Component {
 
@@ -32,25 +31,13 @@ class WorldMap extends React.Component {
     const GoogleMapLocation = withGoogleMap(props => (
      <GoogleMap
        defaultCenter = { { lat: 40.701074, lng: -73.987064 } }
-       defaultZoom = { 13 }
+       defaultZoom = { 1 }
      >
-     {
-       this.props.startingLocationObject &&
-       <Marker
-         position={{ lat: this.props.startingLocationObject.lat, lng: this.props.startingLocationObject.lng }} onClick={() => this.openMarker(this.props.startingLocationObject)}/>
-     }
-     {
-       this.props.endingLocationObject &&
-       <Marker
-         position={{ lat: this.props.endingLocationObject.lat, lng: this.props.endingLocationObject.lng }}
-         onClick={() => this.openMarker(this.props.endingLocationObject)}/>
-     }
-
-     {this.props.destinations.length > 0 && this.props.destinations.map((destination, index) => {
+     {this.props.coordinates.map((coordinate, index) => {
        return <Marker
          key={index}
-         position={{ lat: destination.lat, lng: destination.lng }}
-         onClick={() => this.openMarker(destination)}/>
+         position={{ lat: parseFloat(coordinate.lat), lng: parseFloat(coordinate.lng) }}
+         />
      })}
      </GoogleMap>
 
