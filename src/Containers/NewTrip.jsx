@@ -12,11 +12,12 @@ class NewTrip extends Component {
     endingLocation: '',
     tripName: '',
     coordinates: [],
-    // currentTrip: '',
     startDate: '',
     endDate: '',
     allTrips: [],
     currentTrip: {},
+    filterLocations: [],
+    relations: [],
     additionalLocations: []
   }
 
@@ -24,6 +25,10 @@ class NewTrip extends Component {
     this.setState({
       startingLocation: e.target.value
     })
+  }
+
+  componentDidMount() {
+    this.fetchLocations()
   }
 
   fetchStartLocation = () => {
@@ -173,51 +178,137 @@ class NewTrip extends Component {
       body: JSON.stringify(newTrip)
     })
       .then(res => res.json())
-      .then(console.log)
+      .then(this.createNewLocations)
   }
 
-  // createNewLocations = () => {
-  //   fetch(`http://localhost:3000/trip_locations`, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify(newTrip)
-  //   })
-  //     .then(res => res.json())
-  // }
 
+  createNewLocations = () => {
+    // console.log(this.state.destinations)
+    const destinations = this.state.destinations
+    const coordinates = this.state.coordinates
+    const newLocations = [{
+      name: destinations[0],
+      lat: coordinates[0].lat,
+      lng: coordinates[0].lng
+    },
+  {
+    name: destinations[1],
+    lat: coordinates[1].lat,
+    lng: coordinates[1].lng
+  }]
+  // console.log(newLocations)
+  newLocations.forEach(location => {
+    fetch(`http://localhost:3000/locations`, {
+      method: 'POST',
+      headers: {
+        "Accept": 'application/json',
+        "Authorization": localStorage.getItem('token'),
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(location)
+    })
+      .then(res => res.json())
+      .then(this.findTrips)
+    })
+  }
+
+  updateTripsRelationships = () => {
+    const destinations = this.state.destinations
+    const fetchLocations = this.state.filterLocations
+    const newRelations = fetchLocations.map(location => {
+      return destinations.map(destination => {
+        if (destination === location.name) {
+          return location
+        }
+      })
+    })
+    console.log("New", newRelations)
+    return newRelations
+
+  }
+
+  findTrips = () => {
+    console.log("Find", this.state.destinations)
+    const destinations = this.state.destinations
+    const fetchLocations = this.state.filterLocations
+    const arr = []
+    for (let i = 0; i < fetchLocations.length; i++) {
+      for (let j = 0; j < destinations.length; j++) {
+        fetchLocations[i].name === destinations[j] ? arr.push(fetchLocations[i]) : null
+      }
+    }
+    this.setRelations(arr)
+  }
+
+  setRelations = (locations) => {
+
+  locations.forEach(location => {
+    const newRelation = {
+      trip_id: 1,
+      location_id: location.id
+    }
+    console.log(newRelation)
+    fetch(`http://localhost:3000/trip_locations`, {
+      method: 'POST',
+      headers: {
+        "Accept": 'application/json',
+        "Authorization": localStorage.getItem('token'),
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newRelation)
+    })
+      .then(res => res.json())
+      .then(console.log)
+  })
+  }
+
+  fetchLocations = () => {
+    return fetch(`http://localhost:3000/locations`, {
+     "method": "GET",
+     "headers": {
+       "Content-Type": 'application/json',
+       "Accept": 'application/json',
+       "Authorization": localStorage.getItem('token')
+     }
+   })
+    .then(res => res.json())
+    .then(res => this.setState({
+      filterLocations: res
+      })
+    )
+  }
   // END CREATION
 
   render() {
-
     return (
-      <div className="createTrip container">
-        <div className="planTrip">
-          <PlanNewTrip
-            destinations={this.state.destinations}
-            startingLocation={this.state.startingLocation}
-            endingLocation={this.state.endingLocation}
-            addStartLocation={this.addStartLocation}
-            addEndingLocation={this.addEndingLocation}
-            tripName={this.state.tripName}
-            onAddTrip={this.onAddTrip}
-            handleAddTrip={this.handleAddTrip}
-            findTrip={this.findTrip}
-            coordinates={this.state.coordinates}
-            handleDates={this.handleDates}
-            modifyDestination={this.modifyDestination}
-            deleteTrip={this.deleteTrip}
-            additionalLocations={this.state.additionalLocations}
-            />
-        </div>
-        <div className="worldMap">
-          <WorldMap
-            coordinates={this.state.coordinates}
-            startingLocation={this.state.startingLocation}
-            endingLocation={this.state.endingLocation}
-            destinations={this.state.destinations}
-            />
+      <div className="createTrip">
+        <div className="trips container">
+          <div className="planTrip">
+            <PlanNewTrip
+              destinations={this.state.destinations}
+              startingLocation={this.state.startingLocation}
+              endingLocation={this.state.endingLocation}
+              addStartLocation={this.addStartLocation}
+              addEndingLocation={this.addEndingLocation}
+              tripName={this.state.tripName}
+              onAddTrip={this.onAddTrip}
+              handleAddTrip={this.handleAddTrip}
+              findTrip={this.findTrip}
+              coordinates={this.state.coordinates}
+              handleDates={this.handleDates}
+              modifyDestination={this.modifyDestination}
+              deleteTrip={this.deleteTrip}
+              additionalLocations={this.state.additionalLocations}
+              />
+          </div>
+          <div className="worldMap">
+            <WorldMap
+              coordinates={this.state.coordinates}
+              startingLocation={this.state.startingLocation}
+              endingLocation={this.state.endingLocation}
+              destinations={this.state.destinations}
+              />
+          </div>
         </div>
       </div>
     )

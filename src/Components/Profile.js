@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom'
 import TripCard from './TripCard'
 import WorldMap from '../Containers/WorldMap'
 
-class Profile extends Component {
 
+class Profile extends Component {
 
   state = {
     user: '',
@@ -42,17 +42,26 @@ class Profile extends Component {
     return coords
   }
 
-
   genCards = (trips) => {
     if (trips.length > 0) {
+<<<<<<< HEAD
     return trips.map(trip => {
       return <TripCard deleteTrip={this.deleteTrip} edit={this.state.edit} editTrip={this.editTrip} key={trip.trip_id} trip={trip} />
     })
   } else {
     return <p> No trips yet </p>
   }
+=======
+      return trips.map(trip => {
+        return <TripCard key={trip.trip_id} trip={trip} />
+      })
+    } else {
+      <div>
+        <h1 className="profileTrips">You currently have no trips</h1>
+      </div>
+    }
+>>>>>>> 7a9770c64e27afcc24b240e99bfc9c3338df0604
   }
-
 
   componentDidMount() {
     fetch(`http://localhost:3000/users/${this.props.currentUser.id}`)
@@ -68,13 +77,8 @@ class Profile extends Component {
     )
   }
 
-
-
-
-
   render() {
     return (
-
       <div className="profile col s12 m8 offset-m2">
         <div className="card-panel grey lighten-5">
           <div className="row valign-wrapper">
@@ -82,7 +86,7 @@ class Profile extends Component {
               <img src={this.state.avatar} alt="icon" className="circle responsive-img"/>
             </div>
             <div className="col s10">
-                Welcome {this.state.user}, to your travel archive!
+                <h1 className="profileTrips">Welcome {this.state.user}, to your travel archive!</h1>
             </div>
           </div>
         </div>

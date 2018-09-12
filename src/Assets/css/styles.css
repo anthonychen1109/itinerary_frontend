@@ -22,19 +22,33 @@
 }
 
 /* ##################################### CREATE TRIP ##################################### */
-.createTrip {
+.trips {
   display: flex;
   padding-top: 40px; }
-  .createTrip .planTrip {
+  .trips .planTrip {
     border: 1px solid black;
     max-height: 500px;
     overflow: scroll;
     width: 30%;
   }
-  .createTrip .worldMap {
+  .trips .worldMap {
     width: 70%; }
 
 /* ##################################### PLAN TRIP ##################################### */
+
+.planTripHeaders,
+.planTripStartingLocHeader,
+.tripModalBtn,
+.modalTripHeader,
+.profileTrips,
+.trips-profile,
+.tripcard-locations {
+  font-family: 'Gamja Flower', cursive;
+}
+
+.card-content p {
+  font-family: 'Gamja Flower', cursive;
+}
 
 .planTripForm div {
   display: flex;
@@ -73,6 +87,10 @@
 
 .tripInputDeleteButton {
   max-height: 30px;
+}
+
+.planTrip {
+  background-color: white;
 }
 /* ##################################### NAV BAR ##################################### */
 
@@ -118,7 +136,6 @@
  -moz-background-size: cover;
  -o-background-size: cover;
  background-size: cover;
- height: 100vh;
 }
 
 .signUpHeader {
@@ -137,6 +154,17 @@
 
 .registerSubmitButton {
   text-align: center;
+}
+
+/* ##################################### WORLD MAP ##################################### */
+
+.createTrip {
+  background: url(../images/map.jpg) no-repeat center center fixed;
+ -webkit-background-size: cover;
+ -moz-background-size: cover;
+ -o-background-size: cover;
+ background-size: cover;
+ height: 100vh;
 }
 
 /* ##################################### TRIP MODAL ##################################### */
