@@ -12,8 +12,8 @@ class PlanNewTrip extends Component {
       // If there is only 1 destination other than start and end
       if (this.props.destinations.length === 1) {
         return <TripInput destination={this.props.destinations[0]} modifyDestination={this.props.modifyDestination} deleteTrip={this.props.deleteTrip} />
-      } // If there is more than 1 destination other than start and end
-      else if(this.props.destinations.length > 1) {
+      } // If there is only a start and end
+      else if (this.props.destinations.length === 2) {
         return this.props.destinations.map( (destination, index ) =>
         <TripInput
           key={index}
@@ -21,6 +21,37 @@ class PlanNewTrip extends Component {
           modifyDestination={this.props.modifyDestination}
           deleteTrip={this.props.deleteTrip}/>
         )
+      } // If there are 3 destinations
+      else if (this.props.destinations.length === 3) {
+        const location = this.props.destinations.slice(1,-1)
+        console.log(location);
+        return <TripInput
+          destination={location}
+          modifyDestination={this.props.modifyDestination}
+          deleteTrip={this.props.deleteTrip}/>
+      }
+      // If there is more than 1 destination other than start and end
+      else if(this.props.destinations.length > 3) {
+        const destinationsLength = this.props.destinations.length
+        const locations = this.props.destinations.slice(2)
+        console.log('locations', locations);
+        console.log('length', locations.length);
+        if (locations.length === 1) {
+          console.log('in here');
+          console.log('locations 0', locations[0]);
+          return <TripInput
+            destination={locations[0]}
+            modifyDestination={this.props.modifyDestination}
+            deleteTrip={this.props.deleteTrip}/>
+        } else {
+          return locations.map( (destination, index ) =>
+            <TripInput
+              key={index}
+              destination={destination}
+              modifyDestination={this.props.modifyDestination}
+              deleteTrip={this.props.deleteTrip}/>
+          )
+        }
       } // if there are no destinations
       else {
         return <div>Add another location</div>
