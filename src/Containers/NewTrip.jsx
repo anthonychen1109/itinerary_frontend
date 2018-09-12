@@ -214,7 +214,10 @@ class NewTrip extends Component {
       // console.log(destinations.length, fetchLocations.length)
       for (let i = 0; i < fetchLocations.length; i++) {
         for (let j = 0; j < destinations.length; j++) {
-          fetchLocations[i].name === destinations[j] ? this.findTrips() : this.createNewLocations()
+          fetchLocations[i].name === destinations[j]
+          ? this.findTrips(destinations[j])
+          // : this.createNewLocations()
+          : null
         }
       }
     }
@@ -249,31 +252,26 @@ class NewTrip extends Component {
     })
   }
 
-  findTrips = () => {
+  findTrips = (destination) => {
     console.log('Finding trips')
-    // console.log("Find", this.state.destinations)
-    const destinations = this.state.destinations
+
     const fetchLocations = this.state.filterLocations
     const arr = []
-    for (let i = 0; i < fetchLocations.length; i++) {
-      for (let j = 0; j < destinations.length; j++) {
-        fetchLocations[i].name === destinations[j] ? arr.push(fetchLocations[i]) : null
-      }
-    }
-    const newRelations = [...this.state.relations, arr]
-    this.setState({
-      relations: newRelations
-    }, () => this.setRelations(arr))
+    const foundLocation = fetchLocations.find( location => location.name === destination)
+
+    this.setRelations(foundLocation)
+
   }
 
-  setRelations = (locations) => {
+  setRelations = (location) => {
     console.log('We made it')
-  locations.forEach(location => {
+
+  // locations.forEach(location => {
     const newRelation = {
       trip_id: this.state.currentTrip.id,
       location_id: location.id
     }
-    console.log(newRelation)
+  //   console.log(newRelation)
     fetch(`http://localhost:3000/trip_locations`, {
       method: 'POST',
       headers: {
@@ -285,8 +283,8 @@ class NewTrip extends Component {
     })
       .then(res => res.json())
       .then(console.log)
-    })
-  }
+    }
+
 
   fetchLocations = () => {
     return fetch(`http://localhost:3000/locations`, {
