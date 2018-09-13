@@ -176,6 +176,7 @@ class NewTrip extends Component {
       .then(this.fetchCurrentTrip)
   }
   fetchCurrentTrip = () => {
+    console.log("fetch current trip");
     fetch(`http://localhost:3000/trips`, {
      "method": "GET",
      "headers": {
@@ -202,28 +203,26 @@ class NewTrip extends Component {
     const newLocations = []
     const destinations = this.state.destinations
     const fetchLocations = this.state.filterLocations
-    // console.log("yoooo", fetchLocations);
-    // if (fetchLocations.length === 0) {
-    //   this.createNewLocations()
-    // } else {
-    //   // console.log(destinations.length, fetchLocations.length)
-    //   for (let i = 0; i < fetchLocations.length; i++) {
-    //     for (let j = 0; j < destinations.length; j++) {
-    //       fetchLocations[i].name === destinations[j]
-    //       ? this.findTrips(destinations[j])
-    //       // : this.createNewLocations()
-    //       : newLocations.push(destinations[j])
-    //     }
-    //   }
-    //   const newLocationsSet = new Set(newLocations)
-    //   const newLocationsArray = [...newLocationsSet]
-    //   this.createNewLocations(newLocationsArray)
-    // }
+    if (fetchLocations.length === 0) {
+      this.createNewLocations(fetchLocations)
+    } else {
+      // console.log(destinations.length, fetchLocations.length)
+      for (let i = 0; i < fetchLocations.length; i++) {
+        for (let j = 0; j < destinations.length; j++) {
+          fetchLocations[i].name === destinations[j]
+          ? this.findTrips(destinations[j])
+          // : this.createNewLocations()
+          : newLocations.push(destinations[j])
+        }
+      }
+      const newLocationsSet = new Set(newLocations)
+      const newLocationsArray = [...newLocationsSet]
+      this.createNewLocations(newLocationsArray)
+    }
   }
   createNewLocations = (locations) => {
     console.log("Creating if nonexistent")
     // const destinations = this.state.destinations
-    // debugger
     const coordinates = this.state.coordinates
     const locs = locations.map( (location, index) => {
       const newLocations = {
@@ -247,25 +246,32 @@ class NewTrip extends Component {
       .then(data => this.findTrips(data))
     })
   }
+
   findTrips = (destination) => {
     console.log('Finding trips')
-    console.log("destination", destination);
-    const fetchL = this.fetchLocations()
-    const arr = []
-    const foundLocation = fetchL.then(locations => {
-      locations.find( location => {
-        return location.name === destination.name
-      })
+    // const fetchL = this.fetchLocations()
+    // const arr = []
+    // const foundLocation = fetchL.then(locations => {
+    //   locations.find( location => {
+    //     return location.name === destination.name
+    //   })
+    // })
+    const foundLocation = this.state.filterLocations.find( location => {
+      return location.name === destination
     })
+    // debugger
     this.setRelations(foundLocation)
   }
+
   setRelations = (location) => {
     console.log('We made it')
     console.log(location);
+    debugger
   // locations.forEach(location => {
     const newRelation = {
       trip_id: this.state.currentTrip.id,
-      location_id: location.id
+      // location_id: location.id
+      location_id: this.state.currentTrip.id
     }
   //   console.log(newRelation)
     fetch(`http://localhost:3000/trip_locations`, {

@@ -13,7 +13,6 @@ export default class TripCard extends Component {
   }
 
   render() {
-    console.log(this.props.trip)
     const trip = this.props.trip
     return (
 
