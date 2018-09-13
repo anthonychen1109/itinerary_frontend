@@ -24,7 +24,7 @@ class Profile extends Component {
 
   deleteTrip = (trip) => {
 
-    fetch(`http://localhost:3000/trips/${trip.trip_id}`, {
+    fetch(`http://localhost:3000/trips/${trip.id}`, {
       "method": "DELETE",
       "headers": {
         "Content-Type": 'application/json',
@@ -67,13 +67,8 @@ class Profile extends Component {
     fetch(`http://localhost:3000/users/${this.props.currentUser.id}`)
     .then(r => r.json())
     .then(resp =>
-
-      this.setState({
-        user: resp.username,
-        trips: resp.ctrips,
-        avatar: resp.avatar_url,
-
-      })
+      // console.log(resp)
+      console.log(resp)
     )
   }
 

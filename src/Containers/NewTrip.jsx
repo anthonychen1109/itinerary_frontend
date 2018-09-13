@@ -28,20 +28,27 @@ class NewTrip extends Component {
   }
 
   componentDidMount() {
-    this.fetchLocations()
-      .then(data => this.setState({
-        filterLocations: data
-      }))
+    // this.fetchLocations()
+    //   .then(data => this.setState({
+    //     filterLocations: data
+    //   }))
   }
 
   fetchStartLocation = () => {
     fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${this.state.startingLocation}&key=AIzaSyBoAZrNZdcLmM-Ei7YtwELfS20Hb3bG_N4`)
       .then( res => res.json() )
       .then( data => {
+        console.log(data.results);
       this.setState(prevState => {
         const destination = data.results[0].formatted_address.toString()
         const coordinatesList = {lat: parseFloat(data.results[0].geometry.location.lat), lng: parseFloat(data.results[0].geometry.location.lng)}
+        const startingDestination = {
+          name: data.results[0].formatted_address,
+          lat: data.results[0].geometry.location.lat,
+          lng: data.results[0].geometry.location.lng
+        }
         return {
+          filterLocations: [startingDestination],
           destinations: [destination, ...prevState.destinations],
           coordinates: [coordinatesList, ...prevState.coordinates]
         }
@@ -62,7 +69,13 @@ class NewTrip extends Component {
       this.setState(prevState => {
         const destination = data.results[0].formatted_address.toString()
         const coordinatesList = {lat: parseFloat(data.results[0].geometry.location.lat), lng: parseFloat(data.results[0].geometry.location.lng)}
+        const endingDestination = {
+          name: data.results[0].formatted_address,
+          lat: data.results[0].geometry.location.lat,
+          lng: data.results[0].geometry.location.lng
+        }
         return {
+          filterLocations: [...this.state.filterLocations, endingDestination],
           destinations: [...prevState.destinations, destination],
           coordinates: [...prevState.coordinates, coordinatesList]
         }
@@ -119,7 +132,14 @@ class NewTrip extends Component {
       this.setState(prevState => {
         const destination = data.results[0].formatted_address.toString()
         const coordinatesList = {lat: parseFloat(data.results[0].geometry.location.lat), lng: parseFloat(data.results[0].geometry.location.lng)}
+        const currentFilterLocations = this.state.filterLocations
+        const newDestination = {
+          name: data.results[0].formatted_address,
+          lat: data.results[0].geometry.location.lat,
+          lng: data.results[0].geometry.location.lng
+        }
         return {
+          filterLocations: currentFilterLocations.splice(1, 0, newDestination),
           additionalLocations: [...prevState.additionalLocations, destination],
           coordinates: [...prevState.coordinates, coordinatesList]
         }
@@ -141,7 +161,9 @@ class NewTrip extends Component {
     return fetch(`http://localhost:3000/trip_locations`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': localStorage.getItem('token')
       },
       body: JSON.stringify(newLocation)
     })
@@ -211,9 +233,10 @@ class NewTrip extends Component {
     // console.log('Check Locs')
     const newLocations = []
     const destinations = this.state.destinations
-    const fetchLocations = this.state.filterLocations
+    const fetchLocations = this.fetchLocations()
+
     if (fetchLocations.length === 0) {
-      this.createNewLocations()
+      this.createNewLocations(fetchLocations)
     } else {
       // console.log(destinations.length, fetchLocations.length)
       for (let i = 0; i < fetchLocations.length; i++) {
@@ -233,7 +256,6 @@ class NewTrip extends Component {
   createNewLocations = (locations) => {
     console.log("Creating if nonexistent")
     // const destinations = this.state.destinations
-    // debugger
     const coordinates = this.state.coordinates
     const locs = locations.map( (location, index) => {
       const newLocations = {
@@ -261,38 +283,61 @@ class NewTrip extends Component {
   findTrips = (destination) => {
     console.log('Finding trips')
     console.log("destination", destination);
-    const fetchL = this.fetchLocations()
-    const arr = []
-    const foundLocation = fetchL.then(locations => {
-      locations.find( location => {
-        return location.name === destination.name
-      })
+    this.fetchLocations()
+    this.state.filterLocations.find( location => {
+      return location.name === destination.name
     })
-
-    this.setRelations(foundLocation)
+    this.setRelations(destination)
+      // .then(response => response.json())
+      // .then(data => console.log(data))
+    // const arr = []
+    // const foundLocation = fetchL.then(locations => {
+    //   locations.find( location => {
+    //     return location.name === destination.name
+    //   })
+    // })
+    //
+    // this.setRelations(foundLocation)
 
   }
 
   setRelations = (location) => {
-    console.log('We made it')
-    console.log(location);
-  // locations.forEach(location => {
-    const newRelation = {
-      trip_id: this.state.currentTrip.id,
-      location_id: location.id
-    }
-  //   console.log(newRelation)
-    fetch(`http://localhost:3000/trip_locations`, {
-      method: 'POST',
-      headers: {
-        "Accept": 'application/json',
-        "Authorization": localStorage.getItem('token'),
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(newRelation)
+    // console.log('We made it')
+    // console.log(location);
+    this.state.filterLocations.forEach( location => {
+      const newRelation = {
+        trip_id: this.state.currentTrip.id,
+        location_id: location.id
+      }
+      fetch(`http://localhost:3000/trip_locations`, {
+        method: 'POST',
+        headers: {
+          "Accept": 'application/json',
+          "Authorization": localStorage.getItem('token'),
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newRelation)
+      })
+        .then(res => res.json())
+        .then(data => console.log(data))
     })
-      .then(res => res.json())
-      .then(data => console.log(data))
+  // locations.forEach(location => {
+  //   const newRelation = {
+  //     trip_id: this.state.currentTrip.id,
+  //     location_id: location.id
+  //   }
+  // //   console.log(newRelation)
+  //   fetch(`http://localhost:3000/trip_locations`, {
+  //     method: 'POST',
+  //     headers: {
+  //       "Accept": 'application/json',
+  //       "Authorization": localStorage.getItem('token'),
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify(newRelation)
+  //   })
+  //     .then(res => res.json())
+  //     .then(data => console.log(data))
     }
 
 
@@ -306,6 +351,9 @@ class NewTrip extends Component {
      }
    })
     .then(res => res.json())
+    .then(data => this.setState({
+      filterLocations: data
+    }))
   }
   // END CREATION
 

@@ -1,9 +1,5 @@
 import React, {Component} from 'react'
 
-
-
-
-
 export default class TripCard extends Component {
 
   locations = (locations) => {
@@ -13,7 +9,7 @@ export default class TripCard extends Component {
   }
 
   render() {
-    console.log(this.props.trip)
+    console.log(this.props.trip.locations)
     const trip = this.props.trip
     return (
 
