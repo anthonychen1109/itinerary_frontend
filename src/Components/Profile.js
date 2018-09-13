@@ -64,7 +64,11 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-    fetch(`http://localhost:3000/users/${this.props.currentUser.id}`)
+    this.fetchUser()
+  }
+
+  fetchUser = () => {
+    return fetch(`http://localhost:3000/users/${this.props.currentUser.id}`)
     .then(r => r.json())
     .then(resp =>
 
